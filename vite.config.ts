@@ -29,12 +29,6 @@ export default defineConfig({
         replacement: fileURLToPath(new URL('./src/assets', import.meta.url)),
       },
       {
-        find: '@icon',
-        replacement: fileURLToPath(
-          new URL('./src/assets/icon', import.meta.url)
-        ),
-      },
-      {
         find: '@image',
         replacement: fileURLToPath(
           new URL('./src/assets/image', import.meta.url)
@@ -43,4 +37,3 @@ export default defineConfig({
     ],
   },
 });
-
