@@ -1,10 +1,15 @@
 import './App.scss';
-import imageMain from './assets/image/image-main.jpg';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { Promo } from './pages';
 
 export const App = () => {
   return (
-    <>
-      <img src={imageMain} alt="фото человек в горах и озеро" />
-    </>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Promo />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
