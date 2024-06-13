@@ -3,6 +3,7 @@ import { PersonalInformation } from '../PersonalInformation';
 import { EventPreferences } from '../EventPreferences';
 import { PaymentInformation } from '../PaymentInformation';
 import { SuccessPage } from '../SuccessPage';
+import { Button } from '@mui/material';
 import styles from './StepForm.module.scss';
 
 export const StepForm: React.FC = () => {
@@ -31,8 +32,16 @@ export const StepForm: React.FC = () => {
         {step === 3 && <PaymentInformation />}
         {step === 4 && <SuccessPage />}
         <div className={styles.buttonContainer}>
-          {step > 1 && <button onClick={prevStep}>Back</button>}
-          {step < 4 && <button onClick={nextStep}>Next</button>}
+          {step > 1 && (
+            <Button variant="contained" color="primary" onClick={prevStep}>
+              Back
+            </Button>
+          )}
+          {step < 4 && (
+            <Button variant="contained" color="primary" onClick={nextStep}>
+              Next
+            </Button>
+          )}
         </div>
       </div>
     </div>

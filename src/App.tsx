@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StepForm } from '@components/StepForm';
 import styles from './App.module.scss';
+import { Button } from '@mui/material';
 
 export const App: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
@@ -19,9 +20,13 @@ export const App: React.FC = () => {
               do&nbsp;eiusmod tempor incididunt ut&nbsp;labore et&nbsp;dolore
               magna aliqua.
             </h3>
-            <button className={styles.button} onClick={startRegistration}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={startRegistration}
+            >
               Register for Event
-            </button>
+            </Button>
           </div>
         </>
       ) : (
