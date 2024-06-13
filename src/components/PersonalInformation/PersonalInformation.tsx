@@ -1,5 +1,7 @@
 // src/features/form/PersonalInformation.tsx
 import React from 'react';
+import styles from './PersonalInformation.module.scss';
+
 import { useForm, Controller } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '@/store';
@@ -45,6 +47,8 @@ export const PersonalInformation: React.FC = () => {
     defaultValues: { firstName, lastName, email, age },
   });
 
+  console.log('errors: ', errors);
+
   const onSubmit = (data: PersonalInfoData) => {
     console.log('Form data:', data);
     dispatch(setFirstName(data.firstName));
@@ -54,44 +58,49 @@ export const PersonalInformation: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <Controller
-          name="firstName"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              label="First Name"
-              variant="outlined"
-              error={!!errors.firstName}
-              helperText={errors.firstName ? errors.firstName.message : ''}
-              onChange={e => {
-                field.onChange(e);
-                dispatch(setFirstName(e.target.value));
-              }}
-            />
-          )}
-        />
-      </div>
-      <div>
-        <Controller
-          name="lastName"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              label="Last Name"
-              variant="outlined"
-              error={!!errors.lastName}
-              helperText={errors.lastName ? errors.lastName.message : ''}
-              onChange={e => {
-                field.onChange(e);
-                dispatch(setLastName(e.target.value));
-              }}
-            />
-          )}
-        />
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <div className={styles.wrapper}>
+        <div>
+          <Controller
+            name="firstName"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                required
+                label="First Name"
+                variant="outlined"
+                error={!!errors.firstName}
+                helperText={errors.firstName ? errors.firstName.message : ''}
+                onChange={e => {
+                  console.log('dsds');
+                  field.onChange(e);
+                  dispatch(setFirstName(e.target.value));
+                }}
+              />
+            )}
+          />
+        </div>
+        <div>
+          <Controller
+            name="lastName"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                required
+                label="Last Name"
+                variant="outlined"
+                error={!!errors.lastName}
+                helperText={errors.lastName ? errors.lastName.message : ''}
+                onChange={e => {
+                  field.onChange(e);
+                  dispatch(setLastName(e.target.value));
+                }}
+              />
+            )}
+          />
+        </div>
       </div>
       <div>
         <Controller
@@ -100,6 +109,8 @@ export const PersonalInformation: React.FC = () => {
           render={({ field }) => (
             <TextField
               {...field}
+              required
+              fullWidth
               label="Email"
               variant="outlined"
               type="email"
@@ -120,6 +131,8 @@ export const PersonalInformation: React.FC = () => {
           render={({ field }) => (
             <TextField
               {...field}
+              required
+              fullWidth
               label="Age"
               variant="outlined"
               type="number"

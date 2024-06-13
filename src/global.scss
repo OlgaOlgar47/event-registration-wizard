@@ -1,5 +1,8 @@
+@import '../src/styles/variables.module.scss';
+@import '../src/styles/mixins.module.scss';
+
 :root {
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: $font-family;
   max-width: 1280px;
   min-height: 100vh;
   min-width: 320px;

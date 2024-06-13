@@ -1,3 +1,5 @@
+@import '@/styles/variables.module.scss';
+
 .formOverlay {
   background: linear-gradient(to bottom right, #fff, #f0f0f0, #bdbdbd);
   width: 100%;
@@ -8,19 +10,29 @@
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f0f0f0;
+  background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 8px;
 }
 
 .title {
+  color: $primary-color;
   font-size: 24px;
   margin-bottom: 16px;
 }
 
 .content {
   margin-bottom: 24px;
+}
+
+.buttonContainer {
+  align-self: flex-end;
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
 }
