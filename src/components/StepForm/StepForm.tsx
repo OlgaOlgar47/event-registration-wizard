@@ -6,8 +6,14 @@ import { SuccessPage } from '../SuccessPage';
 import TrainingForm from '../TrainingForm/TrainingForm';
 import { Button } from '@mui/material';
 import styles from './StepForm.module.scss';
+import CloseIcon from '@mui/icons-material/Close';
+import { IconButton } from '@mui/material';
 
-export const StepForm: React.FC = () => {
+interface FormProps {
+  handleClose: () => void;
+}
+
+export const StepForm: React.FC<FormProps> = ({ handleClose }) => {
   const [step, setStep] = useState(1);
 
   const nextStep = () => setStep(prevStep => prevStep + 1);
@@ -27,6 +33,11 @@ export const StepForm: React.FC = () => {
   return (
     <div className={styles.formOverlay}>
       <div className={styles.container}>
+        <div className={styles.closeButton}>
+          <IconButton onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+        </div>
         <h2 className={styles.title}>{title}</h2>
         {step === 1 && <PersonalInformation />}
         {step === 2 && <TrainingForm />}
