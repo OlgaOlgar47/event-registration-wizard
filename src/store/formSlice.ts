@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface FormState {
+export interface FormState {
   firstName: string;
   lastName: string;
   email: string;
