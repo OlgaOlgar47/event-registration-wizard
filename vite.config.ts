@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { fileURLToPath, URL } from 'url';
+import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
@@ -9,31 +9,12 @@ export default defineConfig({
   },
   base: 'https://olgaolgar47.github.io/event-registration-wizard/',
   resolve: {
-    alias: [
-      {
-        find: '@',
-        replacement: fileURLToPath(new URL('./src', import.meta.url)),
-      },
-      {
-        find: '@modules',
-        replacement: fileURLToPath(new URL('./src/modules', import.meta.url)),
-      },
-      {
-        find: '@components',
-        replacement: fileURLToPath(
-          new URL('./src/components', import.meta.url)
-        ),
-      },
-      {
-        find: '@assets',
-        replacement: fileURLToPath(new URL('./src/assets', import.meta.url)),
-      },
-      {
-        find: '@image',
-        replacement: fileURLToPath(
-          new URL('./src/assets/image', import.meta.url)
-        ),
-      },
-    ],
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+      '@modules': path.resolve(__dirname, 'src/modules'),
+      '@components': path.resolve(__dirname, 'src/components'),
+      '@assets': path.resolve(__dirname, 'src/assets'),
+      '@image': path.resolve(__dirname, 'src/assets/image'),
+    },
   },
 });
