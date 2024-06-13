@@ -12,6 +12,11 @@ module.exports = {
     'plugin:prettier/recommended',
     'prettier',
   ],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   overrides: [
     {
       env: {
