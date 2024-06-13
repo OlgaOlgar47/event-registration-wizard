@@ -1,4 +1,3 @@
-// src/features/form/StepForm.tsx
 import React, { useState } from 'react';
 import { PersonalInformation } from '../PersonalInformation';
 import { EventPreferences } from '../EventPreferences';
@@ -12,15 +11,29 @@ export const StepForm: React.FC = () => {
   const nextStep = () => setStep(prevStep => prevStep + 1);
   const prevStep = () => setStep(prevStep => prevStep - 1);
 
+  const title =
+    step === 1
+      ? 'step 1/3: Personal Information'
+      : step === 2
+        ? 'step 2/3: Event Preferences'
+        : step === 3
+          ? 'step 3/3: Payment Information'
+          : step === 4
+            ? 'Success!'
+            : '';
+
   return (
-    <div className={styles.formContainer}>
-      {step === 1 && <PersonalInformation />}
-      {step === 2 && <EventPreferences />}
-      {step === 3 && <PaymentInformation />}
-      {step === 4 && <SuccessPage />}
-      <div>
-        {step > 1 && <button onClick={prevStep}>Back</button>}
-        {step < 4 && <button onClick={nextStep}>Next</button>}
+    <div className={styles.formOverlay}>
+      <div className={styles.container}>
+        <h2 className={styles.title}>{title}</h2>
+        {step === 1 && <PersonalInformation />}
+        {step === 2 && <EventPreferences />}
+        {step === 3 && <PaymentInformation />}
+        {step === 4 && <SuccessPage />}
+        <div className={styles.buttonContainer}>
+          {step > 1 && <button onClick={prevStep}>Back</button>}
+          {step < 4 && <button onClick={nextStep}>Next</button>}
+        </div>
       </div>
     </div>
   );

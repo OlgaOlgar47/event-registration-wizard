@@ -48,7 +48,6 @@ export const SuccessPage: React.FC = () => {
 
   return (
     <div>
-      <h2>Success</h2>
       <p>Your form has been successfully submitted!</p>
       <button onClick={handleSubmit}>Submit Data</button>
     </div>

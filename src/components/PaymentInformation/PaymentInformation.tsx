@@ -21,49 +21,44 @@ export const PaymentInformation: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Payment Information</h2>
-      <form>
-        <div>
-          <label>
-            Payment Method:
-            <select
-              value={paymentMethod}
-              onChange={e =>
-                dispatch(
-                  setPaymentMethod(
-                    e.target.value as 'Credit Card' | 'PayPal' | 'Bank Transfer'
-                  )
+    <form>
+      <div>
+        <label>
+          Payment Method:
+          <select
+            value={paymentMethod}
+            onChange={e =>
+              dispatch(
+                setPaymentMethod(
+                  e.target.value as 'Credit Card' | 'PayPal' | 'Bank Transfer'
                 )
-              }
-            >
-              <option value="Credit Card">Credit Card</option>
-              <option value="PayPal">PayPal</option>
-              <option value="Bank Transfer">Bank Transfer</option>
-            </select>
-          </label>
-        </div>
-        <div>
-          <label>
-            Number of Tickets:
-            <input
-              type="range"
-              min="1"
-              max="10"
-              value={numberOfTickets}
-              onChange={e =>
-                dispatch(setNumberOfTickets(Number(e.target.value)))
-              }
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Profile Picture:
-            <input type="file" onChange={handleFileChange} />
-          </label>
-        </div>
-      </form>
-    </div>
+              )
+            }
+          >
+            <option value="Credit Card">Credit Card</option>
+            <option value="PayPal">PayPal</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+          </select>
+        </label>
+      </div>
+      <div>
+        <label>
+          Number of Tickets:
+          <input
+            type="range"
+            min="1"
+            max="10"
+            value={numberOfTickets}
+            onChange={e => dispatch(setNumberOfTickets(Number(e.target.value)))}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Profile Picture:
+          <input type="file" onChange={handleFileChange} />
+        </label>
+      </div>
+    </form>
   );
 };
