@@ -14,7 +14,7 @@ interface FormProps {
 }
 
 export const StepForm: React.FC<FormProps> = ({ handleClose }) => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState<number>(1);
 
   const nextStep = () => setStep(prevStep => prevStep + 1);
   const prevStep = () => setStep(prevStep => prevStep - 1);
@@ -44,7 +44,7 @@ export const StepForm: React.FC<FormProps> = ({ handleClose }) => {
         {step === 3 && <PaymentInformation />}
         {step === 4 && <SuccessPage />}
         <div className={styles.buttonContainer}>
-          {step > 1 && (
+          {step > 1 && step < 4 && (
             <Button variant="contained" color="primary" onClick={prevStep}>
               &#8592; Back
             </Button>

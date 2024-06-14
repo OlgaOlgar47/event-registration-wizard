@@ -30,6 +30,8 @@ export const SuccessPage: React.FC = () => {
         formDataToSend.append('profilePicture', formData.profilePicture);
       }
 
+      console.log('formDataToSend: ', formDataToSend);
+
       const response = await fetch('http://localhost:3001', {
         method: 'POST',
         body: formDataToSend,
