@@ -1,63 +1,95 @@
-// src/features/form/EventPreferences.tsx
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '@/store';
+import React, { useState } from 'react';
+import styles from './EventPreferences.module.scss';
+import { useForm } from 'react-hook-form';
+import type { FormState } from '@/store/formSlice';
 import {
-  setTicketType,
-  setDietaryRestrictions,
-  setEventDate,
-} from '@/store/formSlice';
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from '@mui/material';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-export const EventPreferences: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { ticketType, dietaryRestrictions, eventDate } = useSelector(
-    (state: RootState) => state.form
-  );
+type TicketType = 'VIP' | 'Standard' | 'Economy';
+
+type EventPreferencesData = {
+  ticketType: TicketType;
+  dietaryRestrictions: string;
+  eventDate: string;
+};
+
+interface EventPreferencesProps {
+  onChange: (data: Partial<FormState>) => void;
+  data: EventPreferencesData;
+}
+
+export const EventPreferences: React.FC<EventPreferencesProps> = ({
+  onChange,
+  data,
+}) => {
+  const {
+    register,
+    // formState: { errors },
+  } = useForm<EventPreferencesData>({
+    defaultValues: data,
+  });
+
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+
+  const handleTicketTypeChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+    onChange({ ticketType: e.target.value as TicketType });
+  };
+
+  const handleDietaryRestrictionsChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    onChange({ dietaryRestrictions: e.target.value });
+  };
+
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+    const formattedDate = date ? date.toISOString() : '';
+    onChange({ eventDate: formattedDate });
+  };
 
   return (
-    <div>
-      <h2>Event Preferences</h2>
-      <form>
+    <>
+      <div className={styles.nameWrapper}>
+        <FormControl required sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel id="ticket-type-label">Ticket Type</InputLabel>
+          <Select
+            {...register('ticketType')}
+            labelId="ticket-type-label"
+            label="Ticket Type"
+            value={data.ticketType}
+            onChange={() => handleTicketTypeChange}
+          >
+            <MenuItem value="VIP">VIP</MenuItem>
+            <MenuItem value="Standard">Standard</MenuItem>
+            <MenuItem value="Economy">Economy</MenuItem>
+          </Select>
+        </FormControl>
         <div>
-          <label>
-            Ticket Type:
-            <select
-              value={ticketType}
-              onChange={e =>
-                dispatch(
-                  setTicketType(
-                    e.target.value as 'VIP' | 'Standard' | 'Economy'
-                  )
-                )
-              }
-            >
-              <option value="VIP">VIP</option>
-              <option value="Standard">Standard</option>
-              <option value="Economy">Economy</option>
-            </select>
-          </label>
+          <TextField
+            {...register('dietaryRestrictions')}
+            label="Dietary Restrictions"
+            variant="outlined"
+            value={data.dietaryRestrictions}
+            onChange={handleDietaryRestrictionsChange}
+          />
         </div>
-        <div>
-          <label>
-            Dietary Restrictions:
-            <input
-              type="text"
-              value={dietaryRestrictions}
-              onChange={e => dispatch(setDietaryRestrictions(e.target.value))}
-            />
-          </label>
+      </div>
+      <div>
+        <div className={styles.datePickerWrapper}>
+          <DatePicker
+            selected={selectedDate}
+            onChange={selectedDate => handleDateChange(selectedDate)}
+            inline
+          />
         </div>
-        <div>
-          <label>
-            Event Date:
-            <input
-              type="date"
-              value={eventDate}
-              onChange={e => dispatch(setEventDate(e.target.value))}
-            />
-          </label>
-        </div>
-      </form>
-    </div>
+      </div>
+    </>
   );
 };

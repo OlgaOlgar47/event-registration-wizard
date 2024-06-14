@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { PersonalInformation } from '../PersonalInformation';
-// import { EventPreferences } from '../EventPreferences';
-import { PaymentInformation } from '../PaymentInformation';
+import { EventPreferences } from '../EventPreferences';
+import { useForm } from 'react-hook-form';
+import type { FormState } from '@/store/formSlice';
+import { initialState } from '@/store/formSlice';
+import { updateForm } from '@/store/formSlice';
+// import { PaymentInformation } from '../PaymentInformation';
 import { SuccessPage } from '../SuccessPage';
-import TrainingForm from '../TrainingForm/TrainingForm';
 import { Button } from '@mui/material';
 import styles from './StepForm.module.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from '@mui/material';
+import { useAppDispatch } from '@/hook';
+import TrainingForm from '../TrainingForm/TrainingForm';
 
 interface FormProps {
   handleClose: () => void;
@@ -15,9 +20,24 @@ interface FormProps {
 
 export const StepForm: React.FC<FormProps> = ({ handleClose }) => {
   const [step, setStep] = useState<number>(1);
+  const [formData, setFormData] = useState<FormState>(initialState);
+
+  const dispatch = useAppDispatch();
+  const { handleSubmit } = useForm<FormState>();
 
   const nextStep = () => setStep(prevStep => prevStep + 1);
   const prevStep = () => setStep(prevStep => prevStep - 1);
+
+  const handleNext = () => {
+    if (step === 3) {
+      dispatch(updateForm(formData));
+    }
+    nextStep();
+  };
+
+  const handleFormChange = (data: Partial<FormState>) => {
+    setFormData(prevData => ({ ...prevData, ...data }));
+  };
 
   const title =
     step === 1
@@ -39,22 +59,28 @@ export const StepForm: React.FC<FormProps> = ({ handleClose }) => {
           </IconButton>
         </div>
         <h2 className={styles.title}>{title}</h2>
-        {step === 1 && <PersonalInformation />}
-        {step === 2 && <TrainingForm />}
-        {step === 3 && <PaymentInformation />}
-        {step === 4 && <SuccessPage />}
-        <div className={styles.buttonContainer}>
-          {step > 1 && step < 4 && (
-            <Button variant="contained" color="primary" onClick={prevStep}>
-              &#8592; Back
-            </Button>
+        <form onSubmit={handleSubmit(handleNext)} className={styles.form}>
+          {step === 1 && (
+            <PersonalInformation onChange={handleFormChange} data={formData} />
           )}
-          {step < 4 && (
-            <Button variant="contained" color="primary" onClick={nextStep}>
-              Next &#8594;
-            </Button>
+          {step === 2 && (
+            <EventPreferences onChange={handleFormChange} data={formData} />
           )}
-        </div>
+          {step === 3 && <TrainingForm />}
+          {step === 4 && <SuccessPage />}
+          <div className={styles.buttonContainer}>
+            {step > 1 && step < 4 && (
+              <Button variant="contained" color="primary" onClick={prevStep}>
+                &#8592; Back
+              </Button>
+            )}
+            {step < 4 && (
+              <Button variant="contained" color="primary" onClick={nextStep}>
+                Next &#8594;
+              </Button>
+            )}
+          </div>
+        </form>
       </div>
     </div>
   );
