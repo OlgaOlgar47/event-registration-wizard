@@ -1,7 +1,13 @@
 import React from 'react';
 import styles from './PersonalInformation.module.scss';
 import { useForm } from 'react-hook-form';
-import { TextField } from '@mui/material';
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from '@mui/material';
 
 type PersonalInfoData = {
   firstName: string;
@@ -26,8 +32,10 @@ export const PersonalInformation: React.FC<PersonalInformationProps> = ({
     defaultValues: data,
   });
 
+  console.log('data', data);
+
   return (
-    <>
+    <div className={styles.content}>
       <div className={styles.nameWrapper}>
         <div>
           <TextField
@@ -58,15 +66,22 @@ export const PersonalInformation: React.FC<PersonalInformationProps> = ({
         />
       </div>
       <div>
-        <TextField
-          {...register('age')}
-          label="Age"
-          type="number"
-          variant="outlined"
-          fullWidth
-          onChange={e => onChange({ age: Number(e.target.value) })}
-        />
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+          <Select
+            {...register('age')}
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="Age"
+            value={data.age || 10}
+            onChange={e => onChange({ age: Number(e.target.value) })}
+          >
+            <MenuItem value={10}>16-25</MenuItem>
+            <MenuItem value={20}>26-35</MenuItem>
+            <MenuItem value={30}>36-99</MenuItem>
+          </Select>
+        </FormControl>
       </div>
-    </>
+    </div>
   );
 };

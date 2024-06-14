@@ -38,58 +38,55 @@ export const EventPreferences: React.FC<EventPreferencesProps> = ({
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
-  const handleTicketTypeChange = (e: React.ChangeEvent<{ value: unknown }>) => {
-    onChange({ ticketType: e.target.value as TicketType });
-  };
-
-  const handleDietaryRestrictionsChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    onChange({ dietaryRestrictions: e.target.value });
-  };
-
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
     const formattedDate = date ? date.toISOString() : '';
     onChange({ eventDate: formattedDate });
   };
 
+  console.log('data', data);
+
   return (
-    <>
-      <div className={styles.nameWrapper}>
-        <FormControl required sx={{ m: 1, minWidth: 120 }}>
+    <div className={styles.content}>
+      <div>
+        <FormControl fullWidth>
           <InputLabel id="ticket-type-label">Ticket Type</InputLabel>
           <Select
             {...register('ticketType')}
             labelId="ticket-type-label"
             label="Ticket Type"
             value={data.ticketType}
-            onChange={() => handleTicketTypeChange}
+            onChange={e =>
+              onChange({ ticketType: e.target.value as TicketType })
+            }
+            fullWidth
           >
             <MenuItem value="VIP">VIP</MenuItem>
             <MenuItem value="Standard">Standard</MenuItem>
             <MenuItem value="Economy">Economy</MenuItem>
           </Select>
         </FormControl>
-        <div>
-          <TextField
-            {...register('dietaryRestrictions')}
-            label="Dietary Restrictions"
-            variant="outlined"
-            value={data.dietaryRestrictions}
-            onChange={handleDietaryRestrictionsChange}
-          />
-        </div>
       </div>
       <div>
-        <div className={styles.datePickerWrapper}>
-          <DatePicker
-            selected={selectedDate}
-            onChange={selectedDate => handleDateChange(selectedDate)}
-            inline
-          />
-        </div>
+        <InputLabel>Dietary Restrictions</InputLabel>
+        <TextField
+          {...register('dietaryRestrictions')}
+          multiline
+          variant="outlined"
+          value={data.dietaryRestrictions}
+          onChange={e => onChange({ dietaryRestrictions: e.target.value })}
+          fullWidth
+        />
       </div>
-    </>
+      <div className={styles.datePickerWrapper}>
+        <InputLabel>Event Date</InputLabel>
+        <DatePicker
+          showIcon
+          toggleCalendarOnIconClick
+          selected={selectedDate}
+          onChange={selectedDate => handleDateChange(selectedDate)}
+        />
+      </div>
+    </div>
   );
 };
