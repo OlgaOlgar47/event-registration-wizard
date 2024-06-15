@@ -5,14 +5,14 @@ import { useForm } from 'react-hook-form';
 import type { FormState } from '@/store/formSlice';
 import { initialState } from '@/store/formSlice';
 import { updateForm } from '@/store/formSlice';
-// import { PaymentInformation } from '../PaymentInformation';
+import { PaymentInformation } from '../PaymentInformation';
 import { SuccessPage } from '../SuccessPage';
 import { Button } from '@mui/material';
 import styles from './StepForm.module.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from '@mui/material';
 import { useAppDispatch } from '@/hook';
-import TrainingForm from '../TrainingForm/TrainingForm';
+// import TrainingForm from '../TrainingForm/TrainingForm';
 
 interface FormProps {
   handleClose: () => void;
@@ -66,7 +66,9 @@ export const StepForm: React.FC<FormProps> = ({ handleClose }) => {
           {step === 2 && (
             <EventPreferences onChange={handleFormChange} data={formData} />
           )}
-          {step === 3 && <TrainingForm />}
+          {step === 3 && (
+            <PaymentInformation onChange={handleFormChange} data={formData} />
+          )}
           {step === 4 && <SuccessPage />}
           <div className={styles.buttonContainer}>
             {step > 1 && step < 4 && (

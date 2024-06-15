@@ -44,9 +44,9 @@
 
 .closeButton {
   position: absolute;
-  top: -20px;
-  right: -20px;
-  background-color: #fff;
+  top: -40px;
+  right: -40px;
+  background-color: $gray-3;
   border-radius: 50%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s;

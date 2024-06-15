@@ -49,6 +49,7 @@ export const PersonalInformation: React.FC<PersonalInformationProps> = ({
         </div>
         <div>
           <TextField
+            required
             {...register('lastName')}
             label="Last Name"
             variant="outlined"
@@ -58,6 +59,7 @@ export const PersonalInformation: React.FC<PersonalInformationProps> = ({
       </div>
       <div>
         <TextField
+          required
           {...register('email')}
           label="Email"
           variant="outlined"

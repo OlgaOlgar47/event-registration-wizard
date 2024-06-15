@@ -68,9 +68,9 @@ export const EventPreferences: React.FC<EventPreferencesProps> = ({
         </FormControl>
       </div>
       <div>
-        <InputLabel>Dietary Restrictions</InputLabel>
         <TextField
           {...register('dietaryRestrictions')}
+          label="Dietary Restrictions"
           multiline
           variant="outlined"
           value={data.dietaryRestrictions}

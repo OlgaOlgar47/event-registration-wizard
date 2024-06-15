@@ -1,64 +1,94 @@
-// src/features/form/PaymentInformation.tsx
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '@/store';
 import {
-  setPaymentMethod,
-  setNumberOfTickets,
-  setProfilePicture,
-} from '@/store/formSlice';
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Slider,
+} from '@mui/material';
+import React from 'react';
+import type { FormState, PaymentMethod } from '@/store/formSlice';
+import { useForm } from 'react-hook-form';
 
-export const PaymentInformation: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { paymentMethod, numberOfTickets } = useSelector(
-    (state: RootState) => state.form
-  );
+type PaymentInformationData = {
+  paymentMethod: PaymentMethod;
+  numberOfTickets: number;
+  profilePicture: File | null;
+};
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      dispatch(setProfilePicture(e.target.files[0]));
-    }
+interface PaymentInformationProps {
+  onChange: (data: Partial<FormState>) => void;
+  data: PaymentInformationData;
+}
+
+export const PaymentInformation: React.FC<PaymentInformationProps> = ({
+  onChange,
+  data,
+}) => {
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files && e.target.files[0]) {
+  //     dispatch(setProfilePicture(e.target.files[0]));
+  //   }
+  // };
+
+  const {
+    register,
+    // formState: { errors },
+  } = useForm<PaymentInformationData>({
+    defaultValues: data,
+  });
+
+  // const handleSliderChange = (event: Event, value: number) => {
+  //   onChange({ numberOfTickets: value });
+  // };
+
+  const handleSliderChange = (_event: Event, value: number | number[]) => {
+    const numberOfTickets = Array.isArray(value) ? value[0] : value;
+    onChange({ numberOfTickets: numberOfTickets });
   };
+
+  console.log('data', data);
 
   return (
     <form>
       <div>
-        <label>
-          Payment Method:
-          <select
-            value={paymentMethod}
+        <FormControl fullWidth>
+          <InputLabel id="ticket-type-label">Ticket Type</InputLabel>
+          <Select
+            {...register('paymentMethod')}
+            labelId="ticket-type-label"
+            label="Ticket Type"
+            value={data.paymentMethod}
             onChange={e =>
-              dispatch(
-                setPaymentMethod(
-                  e.target.value as 'Credit Card' | 'PayPal' | 'Bank Transfer'
-                )
-              )
+              onChange({ paymentMethod: e.target.value as PaymentMethod })
             }
+            fullWidth
           >
-            <option value="Credit Card">Credit Card</option>
-            <option value="PayPal">PayPal</option>
-            <option value="Bank Transfer">Bank Transfer</option>
-          </select>
-        </label>
+            <MenuItem value="Credit Card">Credit Card</MenuItem>
+            <MenuItem value="PayPal">PayPal</MenuItem>
+            <MenuItem value="Bank Transfer">Bank Transfer</MenuItem>
+          </Select>
+        </FormControl>
       </div>
       <div>
-        <label>
-          Number of Tickets:
-          <input
-            type="range"
-            min="1"
-            max="10"
-            value={numberOfTickets}
-            onChange={e => dispatch(setNumberOfTickets(Number(e.target.value)))}
-          />
-        </label>
+        <InputLabel id="number-Of-Tickets">Number Of Tickets</InputLabel>
+        <Slider
+          aria-label="number Of Tickets"
+          defaultValue={1}
+          valueLabelDisplay="on"
+          shiftStep={2}
+          step={1}
+          marks
+          min={1}
+          max={10}
+          onChange={(event, value) => handleSliderChange(event, value)}
+        />
       </div>
-      <div>
+      {/* <div>
         <label>
           Profile Picture:
           <input type="file" onChange={handleFileChange} />
         </label>
-      </div>
+      </div> */}
     </form>
   );
 };

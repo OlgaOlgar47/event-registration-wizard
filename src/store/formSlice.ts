@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type TicketType = 'VIP' | 'Standard' | 'Economy';
-type PaymentMethod = 'Credit Card' | 'PayPal' | 'Bank Transfer';
+export type TicketType = 'VIP' | 'Standard' | 'Economy';
+export type PaymentMethod = 'Credit Card' | 'PayPal' | 'Bank Transfer';
 
 export interface FormState {
   firstName: string;
