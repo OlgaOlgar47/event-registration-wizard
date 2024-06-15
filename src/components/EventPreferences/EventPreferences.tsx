@@ -44,8 +44,6 @@ export const EventPreferences: React.FC<EventPreferencesProps> = ({
     onChange({ eventDate: formattedDate });
   };
 
-  console.log('data', data);
-
   return (
     <div className={styles.content}>
       <div>

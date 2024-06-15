@@ -38,8 +38,6 @@ export const PaymentInformation: React.FC<PaymentInformationProps> = ({
     onChange({ numberOfTickets: numberOfTickets });
   };
 
-  console.log('data', data);
-
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
     onChange({ profilePicture: file });

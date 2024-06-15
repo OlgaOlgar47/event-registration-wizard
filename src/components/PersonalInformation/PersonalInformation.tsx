@@ -8,6 +8,7 @@ import {
   Select,
   TextField,
 } from '@mui/material';
+import { ZodFormattedError } from 'zod';
 
 type PersonalInfoData = {
   firstName: string;
@@ -19,20 +20,31 @@ type PersonalInfoData = {
 interface PersonalInformationProps {
   onChange: (data: Partial<PersonalInfoData>) => void;
   data: PersonalInfoData;
+  formErrors: ZodFormattedError<
+    {
+      firstName: string;
+      lastName: string;
+      email: string;
+      age: number;
+      ticketType: 'standard' | 'premium' | 'vip';
+      eventDate: string;
+      paymentMethod: 'Credit Card' | 'PayPal' | 'Bank Transfer';
+      numberOfTickets: number;
+      dietaryRestrictions?: string | undefined;
+      profilePicture?: File | undefined;
+    },
+    string
+  >;
 }
 
 export const PersonalInformation: React.FC<PersonalInformationProps> = ({
   onChange,
   data,
+  formErrors,
 }) => {
-  const {
-    register,
-    formState: { errors },
-  } = useForm<PersonalInfoData>({
+  const { register } = useForm<PersonalInfoData>({
     defaultValues: data,
   });
-
-  console.log('data', data);
 
   return (
     <div className={styles.content}>
@@ -43,7 +55,8 @@ export const PersonalInformation: React.FC<PersonalInformationProps> = ({
             {...register('firstName')}
             label="First Name"
             variant="outlined"
-            error={!!errors.firstName}
+            error={!!formErrors.firstName}
+            helperText={formErrors.firstName?._errors.join(',')}
             onChange={e => onChange({ firstName: e.target.value })}
           />
         </div>
@@ -51,6 +64,8 @@ export const PersonalInformation: React.FC<PersonalInformationProps> = ({
           <TextField
             required
             {...register('lastName')}
+            error={!!formErrors.lastName}
+            helperText={formErrors.lastName?._errors.join(',')}
             label="Last Name"
             variant="outlined"
             onChange={e => onChange({ lastName: e.target.value })}
@@ -61,6 +76,8 @@ export const PersonalInformation: React.FC<PersonalInformationProps> = ({
         <TextField
           required
           {...register('email')}
+          error={!!formErrors.email}
+          helperText={formErrors.email?._errors.join(',')}
           label="Email"
           variant="outlined"
           fullWidth
