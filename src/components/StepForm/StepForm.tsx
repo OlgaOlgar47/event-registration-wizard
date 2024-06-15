@@ -39,16 +39,15 @@ export const StepForm: React.FC<FormProps> = ({ handleClose }) => {
     setFormData(prevData => ({ ...prevData, ...data }));
   };
 
-  const title =
-    step === 1
-      ? 'step 1/3: Personal Information'
-      : step === 2
-        ? 'step 2/3: Event Preferences'
-        : step === 3
-          ? 'step 3/3: Payment Information'
-          : step === 4
-            ? 'Success!'
-            : '';
+  const stepTitles = [
+    '',
+    'step 1/3: Personal Information',
+    'step 2/3: Event Preferences',
+    'step 3/3: Payment Information',
+    'Success!',
+  ];
+
+  const title = stepTitles[step] || '';
 
   return (
     <div className={styles.formOverlay}>

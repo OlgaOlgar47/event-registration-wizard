@@ -57,7 +57,7 @@ export const PaymentInformation: React.FC<PaymentInformationProps> = ({
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   return (
-    <form>
+    <div className={styles.content}>
       <div>
         <FormControl fullWidth>
           <InputLabel id="ticket-type-label">Ticket Type</InputLabel>
@@ -78,7 +78,9 @@ export const PaymentInformation: React.FC<PaymentInformationProps> = ({
         </FormControl>
       </div>
       <div>
-        <InputLabel id="number-Of-Tickets">Number Of Tickets</InputLabel>
+        <InputLabel className={styles.label} id="number-Of-Tickets">
+          Number Of Tickets
+        </InputLabel>
         <Slider
           aria-label="number Of Tickets"
           defaultValue={1}
@@ -110,6 +112,6 @@ export const PaymentInformation: React.FC<PaymentInformationProps> = ({
           <p className={styles.message}>File uploaded successfully!</p>
         )}
       </div>
-    </form>
+    </div>
   );
 };

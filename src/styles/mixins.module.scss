@@ -9,3 +9,9 @@
     background-color: darken($bg-color, 10%);
   }
 }
+
+@mixin flex-column-container($gap) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}

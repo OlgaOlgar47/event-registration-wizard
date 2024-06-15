@@ -1,2 +1,9 @@
-.message {
+@import '@/styles/mixins.module.scss';
+
+.content {
+  @include flex-column-container(20px);
+}
+
+.label {
+  margin-bottom: 30px;
 }
