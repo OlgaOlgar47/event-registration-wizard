@@ -1,13 +1,16 @@
 import {
+  Button,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   Slider,
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import type { FormState, PaymentMethod } from '@/store/formSlice';
 import { useForm } from 'react-hook-form';
+import { PhotoCamera } from '@mui/icons-material';
+import styles from './PaymentInformation.module.scss';
 
 type PaymentInformationData = {
   paymentMethod: PaymentMethod;
@@ -24,22 +27,11 @@ export const PaymentInformation: React.FC<PaymentInformationProps> = ({
   onChange,
   data,
 }) => {
-  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files && e.target.files[0]) {
-  //     dispatch(setProfilePicture(e.target.files[0]));
-  //   }
-  // };
-
-  const {
-    register,
-    // formState: { errors },
-  } = useForm<PaymentInformationData>({
+  const { register } = useForm<PaymentInformationData>({
     defaultValues: data,
   });
 
-  // const handleSliderChange = (event: Event, value: number) => {
-  //   onChange({ numberOfTickets: value });
-  // };
+  const [fileUploaded, setFileUploaded] = useState<boolean>(false);
 
   const handleSliderChange = (_event: Event, value: number | number[]) => {
     const numberOfTickets = Array.isArray(value) ? value[0] : value;
@@ -47,6 +39,22 @@ export const PaymentInformation: React.FC<PaymentInformationProps> = ({
   };
 
   console.log('data', data);
+
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    onChange({ profilePicture: file });
+    setFileUploaded(true);
+    console.log('Uploaded file:', file);
+  };
+
+  const handleHiddenFileInputClick = () => {
+    // При клике на скрытый input type="file" вызывается файловый диалог
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   return (
     <form>
@@ -83,12 +91,25 @@ export const PaymentInformation: React.FC<PaymentInformationProps> = ({
           onChange={(event, value) => handleSliderChange(event, value)}
         />
       </div>
-      {/* <div>
-        <label>
-          Profile Picture:
-          <input type="file" onChange={handleFileChange} />
-        </label>
-      </div> */}
+      <div>
+        <Button
+          variant="contained"
+          color="secondary"
+          startIcon={<PhotoCamera />}
+          onClick={handleHiddenFileInputClick}
+        >
+          Upload Profile Picture
+        </Button>
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: 'none' }}
+          onChange={handleFileInputChange}
+        />
+        {fileUploaded && (
+          <p className={styles.message}>File uploaded successfully!</p>
+        )}
+      </div>
     </form>
   );
 };
