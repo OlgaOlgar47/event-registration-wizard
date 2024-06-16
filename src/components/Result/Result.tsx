@@ -20,7 +20,6 @@ import { useAppSelector } from '@/hook';
 import { NavLink } from 'react-router-dom';
 import { InsertDriveFile } from '@mui/icons-material';
 import Swal from 'sweetalert2';
-import { useWindowSize } from 'react-use';
 import Confetti from 'react-confetti';
 import axios from 'axios';
 // import axios from 'axios';
@@ -28,7 +27,6 @@ import axios from 'axios';
 export const Result: React.FC = () => {
   const [success, setSuccess] = useState(false);
   const form = useAppSelector(state => state.form);
-  const { width, height } = useWindowSize();
   const entries = Object.entries(form).filter(entry => entry[0] !== 'files');
   const { profilePicture } = form;
 
@@ -52,7 +50,7 @@ export const Result: React.FC = () => {
   };
 
   if (success) {
-    return <Confetti width={width} height={height} />;
+    return <Confetti />;
   }
 
   return (
