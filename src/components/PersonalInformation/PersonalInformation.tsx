@@ -16,7 +16,8 @@ import { FormWrapper } from '../FormWrapper/FormWrapper';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
-import { selectFormData } from '@/store/selectors';
+import { selectPersonalInfoData } from '@/store/selectors';
+import { useTranslation } from 'react-i18next';
 
 export const PersonalInfoSchema = z.object({
   firstName: z.string().min(2, { message: 'First Name is required' }),
@@ -27,18 +28,12 @@ export const PersonalInfoSchema = z.object({
 
 type PersonalInfoData = z.infer<typeof PersonalInfoSchema>;
 
-// const initialState: PersonalInfoData = {
-//   firstName: '',
-//   lastName: '',
-//   email: '',
-//   age: 16,
-// };
-
 export const PersonalInformation: React.FC = () => {
-  const initialState = useAppSelector(state => selectFormData(state));
+  const initialState = useAppSelector(state => selectPersonalInfoData(state));
   console.log('initialState: ', initialState);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -56,7 +51,7 @@ export const PersonalInformation: React.FC = () => {
   };
 
   return (
-    <FormWrapper title="step 1/3: Personal Information">
+    <FormWrapper title={t('step 1/3: Personal Information')}>
       <form
         onSubmit={handleSubmit(onSubmit)}
         noValidate
@@ -67,7 +62,7 @@ export const PersonalInformation: React.FC = () => {
             <TextField
               required
               {...register('firstName')}
-              label="First Name"
+              label={t('First Name')}
               variant="outlined"
               error={!!errors.firstName}
               helperText={errors.firstName?.message}
@@ -79,7 +74,7 @@ export const PersonalInformation: React.FC = () => {
               {...register('lastName')}
               error={!!errors.lastName}
               helperText={errors.lastName?.message}
-              label="Last Name"
+              label={t('Last Name')}
               variant="outlined"
             />
           </div>
@@ -90,7 +85,7 @@ export const PersonalInformation: React.FC = () => {
             {...register('email')}
             error={!!errors.email}
             helperText={errors.email?.message}
-            label="Email"
+            label={t('Email')}
             variant="outlined"
             fullWidth
           />
@@ -102,7 +97,8 @@ export const PersonalInformation: React.FC = () => {
               {...register('age')}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              label="Age"
+              label={t('Age')}
+              defaultValue={initialState.age || 16}
               error={!!errors.age?.message}
             >
               <MenuItem value={16}>16-25</MenuItem>
@@ -113,7 +109,7 @@ export const PersonalInformation: React.FC = () => {
           </FormControl>
         </div>
         <Button type="submit" variant="contained" color="primary" fullWidth>
-          Next &#8594;
+          {t('Next →')}
         </Button>
       </form>
     </FormWrapper>

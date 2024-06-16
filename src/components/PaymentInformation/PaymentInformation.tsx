@@ -16,9 +16,10 @@ import { z } from 'zod';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormWrapper } from '../FormWrapper/FormWrapper';
-import { useAppDispatch } from '@/hook';
+import { useAppDispatch, useAppSelector } from '@/hook';
 import { updateForm } from '@/store/formSlice';
 import { useDropzone } from 'react-dropzone';
+import { selectPaymentData } from '@/store/selectors';
 
 export const PaymentMethodSchema = z.object({
   paymentMethod: z.enum(['Credit Card', 'PayPal', 'Bank Transfer']),
@@ -33,6 +34,7 @@ export const PaymentMethodSchema = z.object({
 type PaymentInformationData = z.infer<typeof PaymentMethodSchema>;
 
 export const PaymentInformation: React.FC = () => {
+  const initialState = useAppSelector(state => selectPaymentData(state));
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [file, setFile] = useState<File | null>(null);
@@ -43,6 +45,8 @@ export const PaymentInformation: React.FC = () => {
     setValue,
     formState: { errors },
   } = useForm<PaymentInformationData>({
+    mode: 'onBlur',
+    defaultValues: initialState,
     resolver: zodResolver(PaymentMethodSchema),
   });
 
@@ -69,13 +73,14 @@ export const PaymentInformation: React.FC = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.content}>
         <div>
           <FormControl fullWidth>
-            <InputLabel id="ticket-type-label">Ticket Type</InputLabel>
+            <InputLabel id="ticket-type-label">Ticket Type*</InputLabel>
             <Select
               {...register('paymentMethod')}
               labelId="ticket-type-label"
               label="Ticket Type"
               error={!!errors.paymentMethod}
               fullWidth
+              defaultValue={initialState.paymentMethod}
             >
               <MenuItem value="Credit Card">Credit Card</MenuItem>
               <MenuItem value="PayPal">PayPal</MenuItem>
@@ -86,7 +91,7 @@ export const PaymentInformation: React.FC = () => {
         </div>
         <div>
           <InputLabel className={styles.label} id="number-Of-Tickets">
-            Number Of Tickets
+            Number Of Tickets*
           </InputLabel>
           <Controller
             name="numberOfTickets"
@@ -95,7 +100,7 @@ export const PaymentInformation: React.FC = () => {
               <Slider
                 {...field}
                 aria-label="number Of Tickets"
-                defaultValue={1}
+                defaultValue={initialState.numberOfTickets}
                 valueLabelDisplay="on"
                 step={1}
                 marks
@@ -124,7 +129,7 @@ export const PaymentInformation: React.FC = () => {
         <Button type="submit" variant="contained" color="primary" fullWidth>
           Submit!
         </Button>
-        <NavLink to="/step1">
+        <NavLink to="/step2">
           <Button type="button" variant="outlined" color="primary" fullWidth>
             &#8592; Back
           </Button>

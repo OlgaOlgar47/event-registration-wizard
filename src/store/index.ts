@@ -1,5 +1,4 @@
 import { configureStore, Middleware } from '@reduxjs/toolkit';
-// import thunk from 'redux-thunk'; // Пример middleware (может быть другой middleware)
 
 import formReducer from './formSlice';
 
@@ -14,8 +13,8 @@ export const store = configureStore({
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
-      serializableCheck: false, // Отключаем проверку на сериализацию
-    }).concat(middleware), // Добавляем другие middleware, если есть
+      serializableCheck: false,
+    }).concat(middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

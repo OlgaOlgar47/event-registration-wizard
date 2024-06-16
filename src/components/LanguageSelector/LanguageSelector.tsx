@@ -1,11 +1,17 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { MenuItem, Select, FormControl, InputLabel } from '@mui/material';
+import {
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+  SelectChangeEvent,
+} from '@mui/material';
 
 export const LanguageSelector: React.FC = () => {
   const { i18n } = useTranslation();
 
-  const changeLanguage = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const changeLanguage = (event: SelectChangeEvent) => {
     i18n.changeLanguage(event.target.value as string);
   };
 
@@ -16,7 +22,7 @@ export const LanguageSelector: React.FC = () => {
         labelId="language-select-label"
         id="language-select"
         value={i18n.language}
-        onChange={() => changeLanguage}
+        onChange={e => changeLanguage(e)}
         label="Language"
       >
         <MenuItem value="en">English</MenuItem>

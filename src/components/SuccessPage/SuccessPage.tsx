@@ -1,4 +1,3 @@
-// src/features/form/SuccessPage.tsx
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '@/store';
@@ -11,21 +10,8 @@ export const SuccessPage: React.FC = () => {
   const handleSubmit = async () => {
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append('firstName', formData.firstName);
-      formDataToSend.append('lastName', formData.lastName);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('age', formData.age.toString());
-      formDataToSend.append('ticketType', formData.ticketType);
-      formDataToSend.append(
-        'dietaryRestrictions',
-        formData.dietaryRestrictions
-      );
-      formDataToSend.append('eventDate', formData.eventDate);
-      formDataToSend.append('paymentMethod', formData.paymentMethod);
-      formDataToSend.append(
-        'numberOfTickets',
-        formData.numberOfTickets.toString()
-      );
+      // formDataToSend.append('formData', formData);
+
       if (formData.profilePicture) {
         formDataToSend.append('profilePicture', formData.profilePicture);
       }

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './EventPreferences.module.scss';
 import { useForm } from 'react-hook-form';
 import { updateForm } from '@/store/formSlice';
-import { useAppDispatch } from '@/hook';
+import { useAppDispatch, useAppSelector } from '@/hook';
 import { z } from 'zod';
 import {
   Button,
@@ -18,6 +18,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { FormWrapper } from '../FormWrapper/FormWrapper';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { selectEventData } from '@/store/selectors';
 
 const EventPreferencesSchema = z.object({
   ticketType: z.enum(['Standart', 'Economy', 'VIP']),
@@ -29,13 +30,8 @@ const EventPreferencesSchema = z.object({
 
 type EventPreferencesData = z.infer<typeof EventPreferencesSchema>;
 
-const initialState: EventPreferencesData = {
-  ticketType: 'VIP',
-  dietaryRestrictions: '',
-  eventDate: '',
-};
-
 export const EventPreferences: React.FC = () => {
+  const initialState = useAppSelector(state => selectEventData(state));
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
@@ -50,9 +46,16 @@ export const EventPreferences: React.FC = () => {
   });
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  console.log('selectedDate: ', selectedDate);
+
+  useEffect(() => {
+    handleDateChange(new Date());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleDateChange = (date: Date | null) => {
     const formattedDate = date ? date.toISOString().split('T')[0] : '';
+    console.log('formattedDate: ', formattedDate);
     setValue('eventDate', formattedDate);
     setSelectedDate(date);
   };
@@ -74,15 +77,13 @@ export const EventPreferences: React.FC = () => {
       >
         <div>
           <FormControl fullWidth>
-            <InputLabel id="ticket-type-label">Ticket Type</InputLabel>
+            <InputLabel id="ticket-type-label">Ticket Type*</InputLabel>
             <Select
               {...register('ticketType')}
               labelId="ticket-type-label"
               label="Ticket Type"
+              defaultValue={initialState.ticketType}
               error={!!errors.ticketType}
-              // onChange={e =>
-              //   onChange({ ticketType: e.target.value as TicketType })
-              // }
               fullWidth
             >
               <MenuItem value="VIP">VIP</MenuItem>
@@ -95,23 +96,27 @@ export const EventPreferences: React.FC = () => {
         <div>
           <TextField
             {...register('dietaryRestrictions')}
-            label="Dietary Restrictions"
+            label="Dietary Restrictions (optional)"
             multiline
             variant="outlined"
             error={!!errors.dietaryRestrictions}
             helperText={errors.dietaryRestrictions?.message}
-            // onChange={e => onChange({ dietaryRestrictions: e.target.value })}
             fullWidth
           />
         </div>
         <div className={styles.datePickerWrapper}>
-          <InputLabel>Event Date</InputLabel>
+          <InputLabel>Event Date*</InputLabel>
           <DatePicker
             showIcon
             toggleCalendarOnIconClick
             selected={selectedDate}
             onChange={selectedDate => handleDateChange(selectedDate)}
+            className={errors.eventDate ? styles.datePickerError : undefined}
+            aria-invalid={!!errors.eventDate}
           />
+          <FormHelperText>
+            {errors.eventDate && errors.eventDate.message}
+          </FormHelperText>
         </div>
         <Button type="submit" variant="contained" color="primary" fullWidth>
           Next &#8594;

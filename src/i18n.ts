@@ -11,7 +11,10 @@ const resources = {
       email: 'Email',
       age: 'Age',
       next: 'Next →',
-      // Add more translations here
+      eventHeadline: 'Event Headline',
+      eventDescription:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      registerButton: 'Register for Event',
     },
   },
   ru: {
@@ -22,7 +25,10 @@ const resources = {
       email: 'Эл. адрес',
       age: 'Возраст',
       next: 'Далее →',
-      // Add more translations here
+      eventHeadline: 'Заголовок мероприятия',
+      eventDescription:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      registerButton: 'Зарегистрироваться на мероприятие',
     },
   },
   fr: {
@@ -33,7 +39,10 @@ const resources = {
       email: 'Email',
       age: 'Âge',
       next: 'Suivant →',
-      // Add more translations here
+      eventHeadline: "Titre de l'événement",
+      eventDescription:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      registerButton: "S'inscrire à l'événement",
     },
   },
   de: {
@@ -44,7 +53,10 @@ const resources = {
       email: 'E-Mail',
       age: 'Alter',
       next: 'Weiter →',
-      // Add more translations here
+      eventHeadline: 'Veranstaltungsüberschrift',
+      eventDescription:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      registerButton: 'Für Veranstaltung registrieren',
     },
   },
 };
