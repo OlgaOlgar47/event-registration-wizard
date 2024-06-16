@@ -7,6 +7,7 @@ import {
   PersonalInformation,
   SuccessPage,
 } from './components';
+import { Result } from './components/Result/Result';
 
 export const App: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ export const App: React.FC = () => {
           <Route path="/step1" element={<PersonalInformation />} />
           <Route path="/step2" element={<EventPreferences />} />
           <Route path="/step3" element={<PaymentInformation />} />
+          <Route path="/result" element={<Result />} />
           <Route path="/success" element={<SuccessPage />} />
         </Routes>
       </Router>

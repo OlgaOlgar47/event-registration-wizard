@@ -57,7 +57,7 @@ export const PaymentInformation: React.FC = () => {
   const onSubmit = (data: PaymentInformationData) => {
     dispatch(updateForm(data));
     console.log('data: ', data);
-    navigate('/success');
+    navigate('/result');
   };
 
   return (
