@@ -5,7 +5,7 @@ export const FormStateSchema = z.object({
   lastName: z.string().min(2, { message: 'Last Name is required' }),
   email: z.string().email('Invalid email address'),
   age: z.number().int().min(16, 'Minimum age is 16'),
-  ticketType: z.enum(['standard', 'premium', 'vip']),
+  ticketType: z.enum(['Standart', 'Economy', 'VIP']),
   dietaryRestrictions: z.string().optional(),
   eventDate: z
     .string()
@@ -19,4 +19,4 @@ export const FormStateSchema = z.object({
   profilePicture: z.instanceof(File).optional(),
 });
 
-export type FormState = z.infer<typeof FormStateSchema>;
+export type FormData = z.infer<typeof FormStateSchema>;

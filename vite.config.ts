@@ -2,12 +2,16 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
+const isProd = process.env.NODE_ENV === 'production';
+const BASE_DEV_PATH = '/';
+const BASE_PROD_PATH = '/event-registration-wizard/';
+
 export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
   },
-  base: 'https://olgaolgar47.github.io/event-registration-wizard/',
+  base: isProd ? BASE_PROD_PATH : BASE_DEV_PATH,
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),

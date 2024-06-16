@@ -30,28 +30,3 @@
   font-size: 24px;
   margin: 10px 0 30px;
 }
-
-.content {
-  margin-bottom: 24px;
-}
-
-.buttonContainer {
-  align-self: flex-end;
-  display: flex;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.closeButton {
-  position: absolute;
-  top: -40px;
-  right: -40px;
-  background-color: $gray-3;
-  border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s;
-
-  &:hover {
-    transform: rotate(90deg);
-  }
-}
