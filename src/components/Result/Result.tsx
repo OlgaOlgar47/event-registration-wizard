@@ -80,7 +80,7 @@ export const Result: React.FC = () => {
         )}
         <Button
           type="button"
-          onClick={onSubmit}
+          onClick={() => onSubmit}
           variant="contained"
           color="primary"
           fullWidth
