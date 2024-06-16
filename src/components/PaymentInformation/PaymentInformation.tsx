@@ -7,14 +7,16 @@ import {
   Select,
   Slider,
 } from '@mui/material';
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { PhotoCamera } from '@mui/icons-material';
+import React from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import styles from './PaymentInformation.module.scss';
 import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormWrapper } from '../FormWrapper/FormWrapper';
+import { useAppDispatch } from '@/hook';
+import { updateForm } from '@/store/formSlice';
+// import { FileInput } from '../FileInput/FileInput';
 
 export const PaymentMethodSchema = z.object({
   paymentMethod: z.enum(['Credit Card', 'PayPal', 'Bank Transfer']),
@@ -23,56 +25,39 @@ export const PaymentMethodSchema = z.object({
     .int()
     .min(1, 'Minimum number of tickets is 1')
     .max(10, 'Maximum number of tickets is 10'),
-  profilePicture: z.instanceof(File).optional(),
 });
+
+// const FileSchema = z.object({
+//   profilePicture: z.instanceof(File).optional(),
+// });
+// type FileData = z.infer<typeof FileSchema>;
 
 type PaymentInformationData = z.infer<typeof PaymentMethodSchema>;
 
-const initialState: PaymentInformationData = {
-  paymentMethod: 'Credit Card',
-  numberOfTickets: 1,
-  profilePicture: undefined,
-};
-
 export const PaymentInformation: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const {
     register,
+    control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<PaymentInformationData>({
-    mode: 'onBlur',
     resolver: zodResolver(PaymentMethodSchema),
-    defaultValues: initialState,
   });
 
-  const [fileUploaded, setFileUploaded] = useState<boolean>(false);
+  // const { control } = useForm<FileData>();
 
   const handleSliderChange = (_event: Event, value: number | number[]) => {
     const numberOfTickets = Array.isArray(value) ? value[0] : value;
-    console.log('numberOfTickets: ', numberOfTickets);
-    // onChange({ numberOfTickets: numberOfTickets });
+    setValue('numberOfTickets', numberOfTickets);
   };
-
-  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : undefined;
-    // onChange({ profilePicture: file });
-    setFileUploaded(true);
-    console.log('Uploaded file:', file);
-  };
-
-  const handleHiddenFileInputClick = () => {
-    // При клике на скрытый input type="file" вызывается файловый диалог
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-
-  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const onSubmit = (data: PaymentInformationData) => {
+    dispatch(updateForm(data));
     console.log('data: ', data);
-    navigate('/step4');
+    navigate('/success');
   };
 
   return (
@@ -86,9 +71,6 @@ export const PaymentInformation: React.FC = () => {
               labelId="ticket-type-label"
               label="Ticket Type"
               error={!!errors.paymentMethod}
-              // onChange={e =>
-              //   onChange({ paymentMethod: e.target.value as PaymentMethod })
-              // }
               fullWidth
             >
               <MenuItem value="Credit Card">Credit Card</MenuItem>
@@ -102,37 +84,28 @@ export const PaymentInformation: React.FC = () => {
           <InputLabel className={styles.label} id="number-Of-Tickets">
             Number Of Tickets
           </InputLabel>
-          <Slider
-            aria-label="number Of Tickets"
-            defaultValue={1}
-            valueLabelDisplay="on"
-            shiftStep={2}
-            step={1}
-            marks
-            min={1}
-            max={10}
-            onChange={(event, value) => handleSliderChange(event, value)}
+          <Controller
+            name="numberOfTickets"
+            control={control}
+            render={({ field }) => (
+              <Slider
+                {...field}
+                aria-label="number Of Tickets"
+                defaultValue={1}
+                valueLabelDisplay="on"
+                step={1}
+                marks
+                min={1}
+                max={10}
+                onChange={(event, value) => handleSliderChange(event, value)}
+              />
+            )}
           />
         </div>
-        <div>
-          <Button
-            variant="contained"
-            color="secondary"
-            startIcon={<PhotoCamera />}
-            onClick={handleHiddenFileInputClick}
-          >
-            Upload Profile Picture
-          </Button>
-          <input
-            type="file"
-            ref={fileInputRef}
-            style={{ display: 'none' }}
-            onChange={handleFileInputChange}
-          />
-          {fileUploaded && (
-            <p className={styles.message}>File uploaded successfully!</p>
-          )}
-        </div>
+        {/* <FileInput control={control} name="profilePicture" /> */}
+        <Button type="submit" variant="contained" color="primary" fullWidth>
+          Submit!
+        </Button>
       </form>
     </FormWrapper>
   );

@@ -1,9 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FormData } from '@/utils/formValidation';
 
-// export type TicketType = 'VIP' | 'Standart' | 'Economy';
-// export type PaymentMethod = 'Credit Card' | 'PayPal' | 'Bank Transfer';
-
 export const initialState: FormData = {
   firstName: '',
   lastName: '',

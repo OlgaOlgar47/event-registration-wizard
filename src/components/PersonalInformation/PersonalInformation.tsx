@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './PersonalInformation.module.scss';
 import { useForm } from 'react-hook-form';
+import { updateForm } from '@/store/formSlice';
+import { useAppDispatch, useAppSelector } from '@/hook';
 import {
   Button,
   FormControl,
@@ -14,6 +16,7 @@ import { FormWrapper } from '../FormWrapper/FormWrapper';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
+import { selectFormData } from '@/store/selectors';
 
 export const PersonalInfoSchema = z.object({
   firstName: z.string().min(2, { message: 'First Name is required' }),
@@ -24,15 +27,18 @@ export const PersonalInfoSchema = z.object({
 
 type PersonalInfoData = z.infer<typeof PersonalInfoSchema>;
 
-const initialState: PersonalInfoData = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  age: 16,
-};
+// const initialState: PersonalInfoData = {
+//   firstName: '',
+//   lastName: '',
+//   email: '',
+//   age: 16,
+// };
 
 export const PersonalInformation: React.FC = () => {
+  const initialState = useAppSelector(state => selectFormData(state));
+  console.log('initialState: ', initialState);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -44,6 +50,7 @@ export const PersonalInformation: React.FC = () => {
   });
 
   const onSubmit = (data: PersonalInfoData) => {
+    dispatch(updateForm(data));
     console.log(data);
     navigate('/step2', { replace: true });
   };
@@ -64,7 +71,6 @@ export const PersonalInformation: React.FC = () => {
               variant="outlined"
               error={!!errors.firstName}
               helperText={errors.firstName?.message}
-              // onChange={e => onChange({ firstName: e.target.value })}
             />
           </div>
           <div>
@@ -75,7 +81,6 @@ export const PersonalInformation: React.FC = () => {
               helperText={errors.lastName?.message}
               label="Last Name"
               variant="outlined"
-              // onChange={e => onChange({ lastName: e.target.value })}
             />
           </div>
         </div>
@@ -88,7 +93,6 @@ export const PersonalInformation: React.FC = () => {
             label="Email"
             variant="outlined"
             fullWidth
-            // onChange={e => onChange({ email: e.target.value })}
           />
         </div>
         <div>
@@ -100,8 +104,6 @@ export const PersonalInformation: React.FC = () => {
               id="demo-simple-select"
               label="Age"
               error={!!errors.age?.message}
-              // value={data.age || 10}
-              // onChange={e => onChange({ age: Number(e.target.value) })}
             >
               <MenuItem value={16}>16-25</MenuItem>
               <MenuItem value={26}>26-35</MenuItem>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styles from './EventPreferences.module.scss';
 import { useForm } from 'react-hook-form';
+import { updateForm } from '@/store/formSlice';
+import { useAppDispatch } from '@/hook';
 import { z } from 'zod';
 import {
   Button,
@@ -35,6 +37,7 @@ const initialState: EventPreferencesData = {
 
 export const EventPreferences: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -55,6 +58,7 @@ export const EventPreferences: React.FC = () => {
   };
 
   const onSubmit = (data: EventPreferencesData) => {
+    dispatch(updateForm(data));
     console.log('data: ', data);
     navigate('/step3', { replace: true });
   };
