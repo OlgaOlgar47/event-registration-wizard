@@ -8,10 +8,12 @@ import {
   SuccessPage,
 } from './components';
 import { Result } from './components/Result/Result';
+import { LanguageSelector } from './components/LanguageSelector/LanguageSelector';
 
 export const App: React.FC = () => {
   return (
     <>
+      <LanguageSelector />
       <Router>
         <Routes>
           <Route path="/" element={<Main />} />

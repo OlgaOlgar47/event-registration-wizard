@@ -7,6 +7,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
 import './assets/fonts/fonts.css';
 import './global.scss';
+import './i18n';
 
 const theme = createTheme({
   palette: {

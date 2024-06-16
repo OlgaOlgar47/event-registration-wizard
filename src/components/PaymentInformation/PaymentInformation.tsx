@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   FormControl,
   FormHelperText,
@@ -6,17 +7,18 @@ import {
   MenuItem,
   Select,
   Slider,
+  Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import styles from './PaymentInformation.module.scss';
 import { z } from 'zod';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormWrapper } from '../FormWrapper/FormWrapper';
 import { useAppDispatch } from '@/hook';
 import { updateForm } from '@/store/formSlice';
-// import { FileInput } from '../FileInput/FileInput';
+import { useDropzone } from 'react-dropzone';
 
 export const PaymentMethodSchema = z.object({
   paymentMethod: z.enum(['Credit Card', 'PayPal', 'Bank Transfer']),
@@ -25,18 +27,15 @@ export const PaymentMethodSchema = z.object({
     .int()
     .min(1, 'Minimum number of tickets is 1')
     .max(10, 'Maximum number of tickets is 10'),
+  profilePicture: z.instanceof(File).optional(),
 });
-
-// const FileSchema = z.object({
-//   profilePicture: z.instanceof(File).optional(),
-// });
-// type FileData = z.infer<typeof FileSchema>;
 
 type PaymentInformationData = z.infer<typeof PaymentMethodSchema>;
 
 export const PaymentInformation: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [file, setFile] = useState<File | null>(null);
   const {
     register,
     control,
@@ -47,7 +46,13 @@ export const PaymentInformation: React.FC = () => {
     resolver: zodResolver(PaymentMethodSchema),
   });
 
-  // const { control } = useForm<FileData>();
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: acceptedFiles => {
+      console.log(acceptedFiles);
+      setFile(acceptedFiles[0]);
+      setValue('profilePicture', acceptedFiles[0]);
+    },
+  });
 
   const handleSliderChange = (_event: Event, value: number | number[]) => {
     const numberOfTickets = Array.isArray(value) ? value[0] : value;
@@ -56,7 +61,6 @@ export const PaymentInformation: React.FC = () => {
 
   const onSubmit = (data: PaymentInformationData) => {
     dispatch(updateForm(data));
-    console.log('data: ', data);
     navigate('/result');
   };
 
@@ -102,10 +106,29 @@ export const PaymentInformation: React.FC = () => {
             )}
           />
         </div>
-        {/* <FileInput control={control} name="profilePicture" /> */}
+        <Box
+          {...getRootProps()}
+          sx={{
+            border: '2px dashed #cccccc',
+            borderRadius: '4px',
+            padding: '20px',
+            textAlign: 'center',
+            cursor: 'pointer',
+          }}
+        >
+          <input {...getInputProps()} />
+          <Typography variant="body1">
+            {file ? 'file is added' : 'drag file'}
+          </Typography>
+        </Box>
         <Button type="submit" variant="contained" color="primary" fullWidth>
           Submit!
         </Button>
+        <NavLink to="/step1">
+          <Button type="button" variant="outlined" color="primary" fullWidth>
+            &#8592; Back
+          </Button>
+        </NavLink>
       </form>
     </FormWrapper>
   );

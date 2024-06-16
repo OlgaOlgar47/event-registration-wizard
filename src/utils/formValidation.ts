@@ -16,6 +16,7 @@ export const FormStateSchema = z.object({
     .int()
     .min(1, 'Minimum number of tickets is 1')
     .max(10, 'Maximum number of tickets is 10'),
+  // profilePicture: z.string().optional(),
   profilePicture: z.instanceof(File).optional(),
 });
 

@@ -116,7 +116,7 @@ export const EventPreferences: React.FC = () => {
         <Button type="submit" variant="contained" color="primary" fullWidth>
           Next &#8594;
         </Button>
-        <NavLink to="/step2">
+        <NavLink to="/step1">
           <Button type="button" variant="outlined" color="primary" fullWidth>
             &#8592; Back
           </Button>
