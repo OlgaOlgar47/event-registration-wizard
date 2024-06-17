@@ -22,7 +22,6 @@ import { InsertDriveFile } from '@mui/icons-material';
 import Swal from 'sweetalert2';
 import Confetti from 'react-confetti';
 import axios from 'axios';
-// import axios from 'axios';
 
 export const Result: React.FC = () => {
   const [success, setSuccess] = useState(false);
@@ -32,7 +31,6 @@ export const Result: React.FC = () => {
 
   const onSubmit = async (data: FormData) => {
     console.log('data: ', data);
-    Swal.fire('Thank you for registration!', "You're all set", 'success');
     setSuccess(true);
     try {
       const response = await axios.post('http://localhost:3001/', data);

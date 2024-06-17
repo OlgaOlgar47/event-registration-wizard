@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "target": "ESNext", // Используем ESNext для поддержки новейших возможностей JavaScript
+    "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext", // Используем ESNext для поддержки современных модулей
-    "moduleResolution": "node", // Используем "node" для разрешения модулей
+    "module": "ESNext",
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "paths": {
@@ -21,9 +21,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true // Включаем интероперабельность ES-модулей для CommonJS
+    "esModuleInterop": true
   },
-  "include": ["src"], // Включаем только папку src для компиляции
-  "references": [{ "path": "./tsconfig.node.json" }] // Ссылка на другой конфигурационный файл
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
 
