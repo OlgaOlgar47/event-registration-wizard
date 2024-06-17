@@ -20,6 +20,7 @@ import { useAppDispatch, useAppSelector } from '@/hook';
 import { updateForm } from '@/store/formSlice';
 import { useDropzone } from 'react-dropzone';
 import { selectPaymentData } from '@/store/selectors';
+import { useTranslation } from 'react-i18next';
 
 export const PaymentMethodSchema = z.object({
   paymentMethod: z.enum(['Credit Card', 'PayPal', 'Bank Transfer']),
@@ -38,6 +39,7 @@ export const PaymentInformation: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [file, setFile] = useState<File | null>(null);
+  const { t } = useTranslation();
   const {
     register,
     control,
@@ -69,29 +71,31 @@ export const PaymentInformation: React.FC = () => {
   };
 
   return (
-    <FormWrapper title="step 3/3: Payment Information">
+    <FormWrapper title={t('step3title')}>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.content}>
         <div>
           <FormControl fullWidth>
-            <InputLabel id="ticket-type-label">Ticket Type*</InputLabel>
+            <InputLabel id="paymentMethod-label">
+              {t('paymentMethod')}
+            </InputLabel>
             <Select
               {...register('paymentMethod')}
-              labelId="ticket-type-label"
-              label="Ticket Type"
+              labelId="payment-method-label"
+              label="payment-method"
               error={!!errors.paymentMethod}
               fullWidth
               defaultValue={initialState.paymentMethod}
             >
-              <MenuItem value="Credit Card">Credit Card</MenuItem>
-              <MenuItem value="PayPal">PayPal</MenuItem>
-              <MenuItem value="Bank Transfer">Bank Transfer</MenuItem>
+              <MenuItem value="Credit Card">{t('creditCard')}</MenuItem>
+              <MenuItem value="PayPal">{t('PayPal')}</MenuItem>
+              <MenuItem value="Bank Transfer">{t('bankTransfer')}</MenuItem>
             </Select>
             <FormHelperText>{errors.paymentMethod?.message}</FormHelperText>
           </FormControl>
         </div>
         <div>
           <InputLabel className={styles.label} id="number-Of-Tickets">
-            Number Of Tickets*
+            {t('numberOfTicketsLabel')}
           </InputLabel>
           <Controller
             name="numberOfTickets"
@@ -99,7 +103,7 @@ export const PaymentInformation: React.FC = () => {
             render={({ field }) => (
               <Slider
                 {...field}
-                aria-label="number Of Tickets"
+                aria-label={t('numberOfTicketsLabel')}
                 defaultValue={initialState.numberOfTickets}
                 valueLabelDisplay="on"
                 step={1}
@@ -110,6 +114,7 @@ export const PaymentInformation: React.FC = () => {
               />
             )}
           />
+          <FormHelperText>{t('numberOfTicketsHelperText')}</FormHelperText>
         </div>
         <Box
           {...getRootProps()}
@@ -123,15 +128,15 @@ export const PaymentInformation: React.FC = () => {
         >
           <input {...getInputProps()} />
           <Typography variant="body1">
-            {file ? 'file is added' : 'drag file'}
+            {file ? t('fileAdded') : t('fileInputHelperText')}
           </Typography>
         </Box>
         <Button type="submit" variant="contained" color="primary" fullWidth>
-          Submit!
+          {t('submitButton')}
         </Button>
         <NavLink to="/step2">
           <Button type="button" variant="outlined" color="primary" fullWidth>
-            &#8592; Back
+            {t('back')}
           </Button>
         </NavLink>
       </form>

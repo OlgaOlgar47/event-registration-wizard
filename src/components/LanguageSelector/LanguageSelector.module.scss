@@ -1,0 +1,11 @@
+@import '@/styles/variables.module.scss';
+
+.languageSelector {
+  position: absolute;
+  top: 100px;
+  right: 100px;
+  z-index: 100;
+  background-color: #fff;
+  border-radius: 6px;
+  color: $primary-color;
+}

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import styles from './LanguageSelector.module.scss';
 import {
   MenuItem,
   Select,
   FormControl,
-  InputLabel,
   SelectChangeEvent,
 } from '@mui/material';
 
@@ -16,20 +16,28 @@ export const LanguageSelector: React.FC = () => {
   };
 
   return (
-    <FormControl variant="outlined">
-      <InputLabel id="language-select-label">Language</InputLabel>
-      <Select
-        labelId="language-select-label"
-        id="language-select"
-        value={i18n.language}
-        onChange={e => changeLanguage(e)}
-        label="Language"
+    <div className={styles.languageSelector}>
+      <FormControl
+        variant="outlined"
+        sx={{
+          '& .MuiOutlinedInput-root': {
+            fontWeight: 'bold',
+          },
+        }}
       >
-        <MenuItem value="en">English</MenuItem>
-        <MenuItem value="ru">Russian</MenuItem>
-        <MenuItem value="fr">French</MenuItem>
-        <MenuItem value="de">German</MenuItem>
-      </Select>
-    </FormControl>
+        <Select
+          labelId="language-select-label"
+          id="language-select"
+          value={i18n.language}
+          onChange={e => changeLanguage(e)}
+          label="Language"
+        >
+          <MenuItem value="en">English</MenuItem>
+          <MenuItem value="ru">Russian</MenuItem>
+          <MenuItem value="fr">French</MenuItem>
+          <MenuItem value="de">German</MenuItem>
+        </Select>
+      </FormControl>
+    </div>
   );
 };

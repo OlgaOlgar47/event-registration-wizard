@@ -20,7 +20,6 @@ export const App: React.FC = () => {
           <Route path="/step2" element={<EventPreferences />} />
           <Route path="/step3" element={<PaymentInformation />} />
           <Route path="/result" element={<Result />} />
-          {/* <Route path="/success" element={<SuccessPage />} /> */}
         </Routes>
       </Router>
     </>

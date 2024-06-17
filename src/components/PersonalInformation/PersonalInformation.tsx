@@ -47,11 +47,11 @@ export const PersonalInformation: React.FC = () => {
   const onSubmit = (data: PersonalInfoData) => {
     dispatch(updateForm(data));
     console.log(data);
-    navigate('/step2', { replace: true });
+    navigate('/step2');
   };
 
   return (
-    <FormWrapper title={t('step 1/3: Personal Information')}>
+    <FormWrapper title={t('step1title')}>
       <form
         onSubmit={handleSubmit(onSubmit)}
         noValidate
@@ -62,7 +62,7 @@ export const PersonalInformation: React.FC = () => {
             <TextField
               required
               {...register('firstName')}
-              label={t('First Name')}
+              label={t('firstName')}
               variant="outlined"
               error={!!errors.firstName}
               helperText={errors.firstName?.message}
@@ -74,7 +74,7 @@ export const PersonalInformation: React.FC = () => {
               {...register('lastName')}
               error={!!errors.lastName}
               helperText={errors.lastName?.message}
-              label={t('Last Name')}
+              label={t('lastName')}
               variant="outlined"
             />
           </div>
@@ -85,19 +85,19 @@ export const PersonalInformation: React.FC = () => {
             {...register('email')}
             error={!!errors.email}
             helperText={errors.email?.message}
-            label={t('Email')}
+            label={t('email')}
             variant="outlined"
             fullWidth
           />
         </div>
         <div>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+            <InputLabel id="demo-simple-select-label">{t('age')}</InputLabel>
             <Select
               {...register('age')}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              label={t('Age')}
+              label={t('age')}
               defaultValue={initialState.age || 16}
               error={!!errors.age?.message}
             >
@@ -109,7 +109,7 @@ export const PersonalInformation: React.FC = () => {
           </FormControl>
         </div>
         <Button type="submit" variant="contained" color="primary" fullWidth>
-          {t('Next →')}
+          {t('next')}
         </Button>
       </form>
     </FormWrapper>

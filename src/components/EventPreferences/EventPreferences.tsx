@@ -19,9 +19,10 @@ import { FormWrapper } from '../FormWrapper/FormWrapper';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { selectEventData } from '@/store/selectors';
+import { useTranslation } from 'react-i18next';
 
 const EventPreferencesSchema = z.object({
-  ticketType: z.enum(['Standart', 'Economy', 'VIP']),
+  ticketType: z.enum(['Standard', 'Economy', 'VIP']),
   dietaryRestrictions: z.string().optional(),
   eventDate: z
     .string()
@@ -34,6 +35,7 @@ export const EventPreferences: React.FC = () => {
   const initialState = useAppSelector(state => selectEventData(state));
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -69,7 +71,7 @@ export const EventPreferences: React.FC = () => {
   console.log('errors: ', errors);
 
   return (
-    <FormWrapper title="step 2/3: Event Preferences">
+    <FormWrapper title={t('step2title')}>
       <form
         onSubmit={handleSubmit(onSubmit)}
         noValidate
@@ -77,7 +79,9 @@ export const EventPreferences: React.FC = () => {
       >
         <div>
           <FormControl fullWidth>
-            <InputLabel id="ticket-type-label">Ticket Type*</InputLabel>
+            <InputLabel id="ticket-type-label">
+              {t('ticketTypeLabel')}
+            </InputLabel>
             <Select
               {...register('ticketType')}
               labelId="ticket-type-label"
@@ -86,9 +90,9 @@ export const EventPreferences: React.FC = () => {
               error={!!errors.ticketType}
               fullWidth
             >
-              <MenuItem value="VIP">VIP</MenuItem>
-              <MenuItem value="Standart">Standard</MenuItem>
-              <MenuItem value="Economy">Economy</MenuItem>
+              <MenuItem value="VIP">{t('vip')}</MenuItem>
+              <MenuItem value="Standard">{t('standard')}</MenuItem>
+              <MenuItem value="Economy">{t('economy')}</MenuItem>
             </Select>
             <FormHelperText>{errors.ticketType?.message}</FormHelperText>
           </FormControl>
@@ -96,7 +100,7 @@ export const EventPreferences: React.FC = () => {
         <div>
           <TextField
             {...register('dietaryRestrictions')}
-            label="Dietary Restrictions (optional)"
+            label={t('dietaryRestrictionsLabel')}
             multiline
             variant="outlined"
             error={!!errors.dietaryRestrictions}
@@ -105,7 +109,7 @@ export const EventPreferences: React.FC = () => {
           />
         </div>
         <div className={styles.datePickerWrapper}>
-          <InputLabel>Event Date*</InputLabel>
+          <InputLabel>{t('eventDateLabel')}</InputLabel>
           <DatePicker
             showIcon
             toggleCalendarOnIconClick
@@ -119,11 +123,11 @@ export const EventPreferences: React.FC = () => {
           </FormHelperText>
         </div>
         <Button type="submit" variant="contained" color="primary" fullWidth>
-          Next &#8594;
+          {t('next')}
         </Button>
         <NavLink to="/step1">
           <Button type="button" variant="outlined" color="primary" fullWidth>
-            &#8592; Back
+            {t('back')}
           </Button>
         </NavLink>
       </form>

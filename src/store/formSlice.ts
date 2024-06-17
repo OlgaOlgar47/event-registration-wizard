@@ -6,7 +6,7 @@ export const initialState: FormData = {
   lastName: '',
   email: '',
   age: 16,
-  ticketType: 'Standart',
+  ticketType: 'Standard',
   dietaryRestrictions: '',
   eventDate: '',
   paymentMethod: 'Credit Card',
