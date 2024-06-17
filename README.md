@@ -60,13 +60,13 @@ Ensures data entered in each step is saved and accessible in subsequent steps.
 
 ---
 
-_Frontend_: React, TypeScript
-_State Management_: Redux Toolkit  
-_Styling_: CSS Modules (module.scss), variables, mixins, styles-nesting, material-UI
-_Form Handling_: React Hook Form, Zod  
-_API_: Axios  
-_Internationalization_: i18next, react-i18next
-_Code Quality_: Husky, lint-staged, stylelint
+**Frontend**: React, TypeScript
+**State Management**: Redux Toolkit  
+**Styling**: CSS Modules (module.scss), variables, mixins, styles-nesting, material-UI
+**Form Handling**: React Hook Form, Zod  
+**API**: Axios  
+**Internationalization**: i18next, react-i18next
+**Code Quality**: Husky, lint-staged, stylelint
 
 In this project, a modular architecture was deemed unnecessary due to the project's scope and complexity. Instead, a simple and straightforward folder structure was chosen to keep the codebase clean and easy to navigate. This approach allows for rapid development and easy maintenance while providing enough organization to manage the key parts of the application efficiently.
 
@@ -80,4 +80,4 @@ In this project, a modular architecture was deemed unnecessary due to the projec
 
 - npm install - install the dependencies;
 
-- npm run dev - the project will start on port http://localhost:5173; 🔥
+- npm run dev - the project will start on port http://localhost:3000; 🔥
