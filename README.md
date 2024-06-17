@@ -80,4 +80,4 @@ In this project, a modular architecture was deemed unnecessary due to the projec
 
 - npm install - install the dependencies;
 
-- npm run dev - the project will start on port http://localhost:5173; 🔥
+- npm run dev - the project will start on port http://localhost:3000; 🔥
