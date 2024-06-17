@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { FormWrapper } from '../FormWrapper/FormWrapper';
+import { FormWrapper } from '../../features/FormWrapper/FormWrapper';
 import styles from './Result.module.scss';
-import { FormData } from '@/utils/formValidation';
 import {
   Button,
   List,
@@ -21,23 +20,21 @@ import { NavLink } from 'react-router-dom';
 import { InsertDriveFile } from '@mui/icons-material';
 import Swal from 'sweetalert2';
 import Confetti from 'react-confetti';
-import axios from 'axios';
+import { submitFormData } from '@/utils/api';
+import { useTranslation } from 'react-i18next';
 
 export const Result: React.FC = () => {
   const [success, setSuccess] = useState(false);
   const form = useAppSelector(state => state.form);
   const entries = Object.entries(form).filter(entry => entry[0] !== 'files');
   const { profilePicture } = form;
+  const { t } = useTranslation();
 
-  const onSubmit = async (data: FormData) => {
-    console.log('data: ', data);
+  const onSubmit = async () => {
     try {
-      const response = await axios.post(
-        'https://jsonplaceholder.typicode.com/posts',
-        data
-      );
+      const isSuccess = await submitFormData(form);
 
-      if (response.status === 201) {
+      if (isSuccess) {
         Swal.fire('Thank you for registration!', "You're all set", 'success');
         setSuccess(true);
       } else {
@@ -55,7 +52,7 @@ export const Result: React.FC = () => {
 
   return (
     <>
-      <FormWrapper title="Result">
+      <FormWrapper title={t('resultTitle')}>
         <div className={styles.tableContainer}>
           <TableContainer
             component={Paper}
@@ -64,8 +61,8 @@ export const Result: React.FC = () => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Field</TableCell>
-                  <TableCell align="right">Value</TableCell>
+                  <TableCell>{t('fieldLabel')}</TableCell>
+                  <TableCell align="right">{t('valueLabel')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -80,7 +77,7 @@ export const Result: React.FC = () => {
           </TableContainer>
           {profilePicture && (
             <>
-              <p>ProfilePic</p>
+              <p>{t('profilePicLabel')}</p>
               <List>
                 <ListItem>
                   <ListItemIcon>
@@ -96,15 +93,15 @@ export const Result: React.FC = () => {
           )}
           <div className={styles.buttonsContainer}>
             <Button
-              onClick={() => onSubmit(form)}
+              onClick={onSubmit}
               variant="contained"
               color="primary"
               fullWidth
             >
-              Submit!
+              {t('submitButton')}
             </Button>
             <NavLink className={styles.link} to="/">
-              &#8592; Start Over
+              {t('startOverLink')}
             </NavLink>
           </div>
         </div>

@@ -1,13 +1,13 @@
 import React from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import { Main } from './components/Main/Main';
+import { Main } from '@/components';
 import {
   EventPreferences,
   PaymentInformation,
   PersonalInformation,
-} from './components';
-import { Result } from './components/Result/Result';
-import { LanguageSelector } from './components/LanguageSelector/LanguageSelector';
+} from '@/components';
+import { Result } from '@/components';
+import { LanguageSelector } from '@/features';
 
 export const App: React.FC = () => {
   return (

@@ -12,7 +12,7 @@ import {
   Select,
   TextField,
 } from '@mui/material';
-import { FormWrapper } from '../FormWrapper/FormWrapper';
+import { FormWrapper } from '../../features/FormWrapper/FormWrapper';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
@@ -30,7 +30,6 @@ type PersonalInfoData = z.infer<typeof PersonalInfoSchema>;
 
 export const PersonalInformation: React.FC = () => {
   const initialState = useAppSelector(state => selectPersonalInfoData(state));
-  console.log('initialState: ', initialState);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
@@ -46,7 +45,6 @@ export const PersonalInformation: React.FC = () => {
 
   const onSubmit = (data: PersonalInfoData) => {
     dispatch(updateForm(data));
-    console.log(data);
     navigate('/step2');
   };
 

@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { FormWrapper } from '../FormWrapper/FormWrapper';
+import { FormWrapper } from '../../features/FormWrapper/FormWrapper';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { selectEventData } from '@/store/selectors';
@@ -48,7 +48,6 @@ export const EventPreferences: React.FC = () => {
   });
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
-  console.log('selectedDate: ', selectedDate);
 
   useEffect(() => {
     handleDateChange(new Date());
@@ -57,18 +56,14 @@ export const EventPreferences: React.FC = () => {
 
   const handleDateChange = (date: Date | null) => {
     const formattedDate = date ? date.toISOString().split('T')[0] : '';
-    console.log('formattedDate: ', formattedDate);
     setValue('eventDate', formattedDate);
     setSelectedDate(date);
   };
 
   const onSubmit = (data: EventPreferencesData) => {
     dispatch(updateForm(data));
-    console.log('data: ', data);
     navigate('/step3', { replace: true });
   };
-
-  console.log('errors: ', errors);
 
   return (
     <FormWrapper title={t('step2title')}>

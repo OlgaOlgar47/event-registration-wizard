@@ -15,7 +15,7 @@ import styles from './PaymentInformation.module.scss';
 import { z } from 'zod';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormWrapper } from '../FormWrapper/FormWrapper';
+import { FormWrapper } from '../../features/FormWrapper/FormWrapper';
 import { useAppDispatch, useAppSelector } from '@/hook';
 import { updateForm } from '@/store/formSlice';
 import { useDropzone } from 'react-dropzone';
@@ -54,7 +54,6 @@ export const PaymentInformation: React.FC = () => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: acceptedFiles => {
-      console.log(acceptedFiles);
       setFile(acceptedFiles[0]);
       setValue('profilePicture', acceptedFiles[0]);
     },
@@ -132,7 +131,7 @@ export const PaymentInformation: React.FC = () => {
           </Typography>
         </Box>
         <Button type="submit" variant="contained" color="primary" fullWidth>
-          {t('submitButton')}
+          {t('next')}
         </Button>
         <NavLink to="/step2">
           <Button type="button" variant="outlined" color="primary" fullWidth>
