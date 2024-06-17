@@ -31,11 +31,13 @@ export const Result: React.FC = () => {
 
   const onSubmit = async (data: FormData) => {
     console.log('data: ', data);
-    setSuccess(true);
     try {
-      const response = await axios.post('http://localhost:3001/', data);
+      const response = await axios.post(
+        'https://jsonplaceholder.typicode.com/posts',
+        data
+      );
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         Swal.fire('Thank you for registration!', "You're all set", 'success');
         setSuccess(true);
       } else {
@@ -55,7 +57,10 @@ export const Result: React.FC = () => {
     <>
       <FormWrapper title="Result">
         <div className={styles.tableContainer}>
-          <TableContainer component={Paper}>
+          <TableContainer
+            component={Paper}
+            style={{ maxHeight: '60vh', overflow: 'auto' }}
+          >
             <Table>
               <TableHead>
                 <TableRow>
@@ -89,17 +94,19 @@ export const Result: React.FC = () => {
               </List>
             </>
           )}
-          <Button
-            onClick={() => onSubmit(form)}
-            variant="contained"
-            color="primary"
-            fullWidth
-          >
-            Submit!
-          </Button>
-          <NavLink className={styles.link} to="/">
-            &#8592; Start Over
-          </NavLink>
+          <div className={styles.buttonsContainer}>
+            <Button
+              onClick={() => onSubmit(form)}
+              variant="contained"
+              color="primary"
+              fullWidth
+            >
+              Submit!
+            </Button>
+            <NavLink className={styles.link} to="/">
+              &#8592; Start Over
+            </NavLink>
+          </div>
         </div>
       </FormWrapper>
     </>

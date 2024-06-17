@@ -36,7 +36,7 @@ The form is divided into four steps:
 
 - Result Page:
   Displays a table with all data user put and have buuton start over if something is wrong
-  if all is good, submits the form data to the REST API at http://localhost:3001.
+  if all is good, submits the form data to the REST API at http://localhost:3001 ('https://jsonplaceholder.typicode.com/posts': to visually represent succesfull server respond).
 
 - Success:
   showing succes alert and confetti

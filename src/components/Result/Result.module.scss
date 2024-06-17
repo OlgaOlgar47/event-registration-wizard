@@ -2,5 +2,11 @@
 
 .link {
   color: $primary-color;
-  margin-top: 20px;
+}
+
+.buttonsContainer {
+  margin: 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
