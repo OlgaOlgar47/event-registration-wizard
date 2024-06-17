@@ -60,7 +60,7 @@ Ensures data entered in each step is saved and accessible in subsequent steps.
 
 ---
 
-_Frontend_: React, TypeScript
+**Frontend**: React, TypeScript
 _State Management_: Redux Toolkit  
 _Styling_: CSS Modules (module.scss), variables, mixins, styles-nesting, material-UI
 _Form Handling_: React Hook Form, Zod  
