@@ -56,11 +56,17 @@ Ensures data entered in each step is saved and accessible in subsequent steps.
 
 **Frontend**: React 18.2.0, TypeScript 5.2.2
 node.js 20.12.2
+
 **State Management**: Redux Toolkit 2.2.5
+
 **Styling**: CSS Modules (module.scss), variables, mixins, styles-nesting, material-UI
+
 **Form Handling**: React Hook Form, Zod  
+
 **API**: Axios  
+
 **Internationalization**: i18next, react-i18next
+
 **Code Quality**: Husky, eslint, stylelint, prettier, eslint-plugin-import
 
 In this project, a modular architecture was deemed unnecessary due to the project's scope and complexity. Instead, a simple and straightforward folder structure was chosen to keep the codebase clean and easy to navigate. This approach allows for rapid development and easy maintenance while providing enough organization to manage the key parts of the application efficiently.
