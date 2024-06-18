@@ -20,6 +20,7 @@ export const LanguageSelector: React.FC = () => {
       <FormControl
         variant="outlined"
         sx={{
+          outline: 'none',
           '& .MuiOutlinedInput-root': {
             fontWeight: 'bold',
           },
@@ -31,6 +32,9 @@ export const LanguageSelector: React.FC = () => {
           value={i18n.language}
           onChange={e => changeLanguage(e)}
           label="Language"
+          sx={{
+            outline: 'none', // убираем обводку при фокусе на самом Select
+          }}
         >
           <MenuItem value="en">English</MenuItem>
           <MenuItem value="ru">Russian</MenuItem>

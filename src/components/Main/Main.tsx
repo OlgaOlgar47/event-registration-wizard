@@ -1,13 +1,13 @@
 import React from 'react';
-import styles from './Main.module.scss';
-import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Button } from '@mui/material';
+import styles from './Main.module.scss';
 
 export const Main: React.FC = () => {
   const navigate = useNavigate();
   const openStepForm = () => {
-    navigate('/step1', { replace: true });
+    navigate('/step1');
   };
   const { t } = useTranslation();
 

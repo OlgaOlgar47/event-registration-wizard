@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Main } from '@/components';
 import {
@@ -8,8 +8,33 @@ import {
 } from '@/components';
 import { Result } from '@/components';
 import { LanguageSelector } from '@/features';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export const App: React.FC = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+        }}
+      >
+        <CircularProgress />
+      </div>
+    );
+  }
   return (
     <>
       <LanguageSelector />
