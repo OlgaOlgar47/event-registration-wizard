@@ -1,8 +1,8 @@
-### Overview
+## Overview
 
 Event Registration Wizard is a single-page React application developed with TypeScript. It provides a multi-step form for users to register for an event, collecting personal information, event preferences, and payment details. The form supports real-time validation, multi-language interface, and state persistence across steps.
 
-### Project link
+## Project link
 
 ---
 
@@ -10,11 +10,11 @@ Project is configured for automatic deployment to GitHub Pages with every push t
 
 Check website here 👉 [click](https://olgaolgar47.github.io/event-registration-wizard/)
 
-### Features
+## Features
 
 ---
 
-## Multi-Step Form
+### Multi-Step Form
 
 The form is divided into four steps:
 
@@ -41,27 +41,28 @@ The form is divided into four steps:
 - Success:
   showing succes alert and confetti
 
-## Real-Time Validation
+### Real-Time Validation
 
 Ensures required fields are not left empty.
 Displays error messages dynamically.
 
-## Language Selector
+### Language Selector
 
 Supports English, Russian, French, and German.
 Persists selected language between page reloads using a language selector.
 
-## State Management
+### State Management
 
 Utilizes Redux for managing form data across different steps.
 Ensures data entered in each step is saved and accessible in subsequent steps.
 
-### Technical Stack
+## Technical Stack
 
 ---
 
-**Frontend**: React, TypeScript
-**State Management**: Redux Toolkit  
+**Frontend**: React 18.2.0, TypeScript 5.2.2
+node.js 20.12.2
+**State Management**: Redux Toolkit 2.2.5
 **Styling**: CSS Modules (module.scss), variables, mixins, styles-nesting, material-UI
 **Form Handling**: React Hook Form, Zod  
 **API**: Axios  
@@ -70,7 +71,7 @@ Ensures data entered in each step is saved and accessible in subsequent steps.
 
 In this project, a modular architecture was deemed unnecessary due to the project's scope and complexity. Instead, a simple and straightforward folder structure was chosen to keep the codebase clean and easy to navigate. This approach allows for rapid development and easy maintenance while providing enough organization to manage the key parts of the application efficiently.
 
-### Installation
+## Installation
 
 ---
 
