@@ -38,7 +38,7 @@ export const PersonalInformation: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<PersonalInfoData>({
-    mode: 'onBlur',
+    mode: 'onChange',
     defaultValues: initialState,
     resolver: zodResolver(PersonalInfoSchema),
   });

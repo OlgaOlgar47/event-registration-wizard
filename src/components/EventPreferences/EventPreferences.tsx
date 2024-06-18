@@ -42,7 +42,7 @@ export const EventPreferences: React.FC = () => {
     formState: { errors },
     setValue,
   } = useForm<EventPreferencesData>({
-    mode: 'onBlur',
+    mode: 'onChange',
     resolver: zodResolver(EventPreferencesSchema),
     defaultValues: initialState,
   });
