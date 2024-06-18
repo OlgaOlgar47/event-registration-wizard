@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { FormWrapper } from '../../features/FormWrapper/FormWrapper';
-import styles from './Result.module.scss';
+import { InsertDriveFile } from '@mui/icons-material';
 import {
   Button,
   List,
@@ -15,13 +13,15 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import { useAppSelector } from '@/hook';
-import { NavLink } from 'react-router-dom';
-import { InsertDriveFile } from '@mui/icons-material';
-import Swal from 'sweetalert2';
+import React, { useState } from 'react';
 import Confetti from 'react-confetti';
-import { submitFormData } from '@/utils/api';
 import { useTranslation } from 'react-i18next';
+import { NavLink } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { useAppSelector } from '@/hook';
+import { submitFormData } from '@/utils/api';
+import { FormWrapper } from '../../features/FormWrapper/FormWrapper';
+import styles from './Result.module.scss';
 
 export const Result: React.FC = () => {
   const [success, setSuccess] = useState(false);

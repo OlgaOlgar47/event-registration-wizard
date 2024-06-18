@@ -1,10 +1,10 @@
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { App } from '@/App';
 import { Provider } from 'react-redux';
 import { store } from '@/store';
-import { ThemeProvider } from '@mui/material/styles';
-import { createTheme } from '@mui/material/styles';
+import { App } from './App';
+
 import './assets/fonts/fonts.css';
 import './global.scss';
 import './i18n';

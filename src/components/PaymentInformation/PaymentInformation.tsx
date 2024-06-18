@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useDropzone } from 'react-dropzone';
-import { useForm, Controller } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import ImageIcon from '@mui/icons-material/Image';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import {
   Box,
   Button,
@@ -19,12 +13,17 @@ import {
   Slider,
   Typography,
 } from '@mui/material';
-
-import { FormWrapper } from '../../features/FormWrapper/FormWrapper';
+import React, { useEffect, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { useForm, Controller } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { z } from 'zod';
+import avatar from '@/assets/icon/avatar.svg';
 import { useAppDispatch, useAppSelector } from '@/hook';
 import { updateForm } from '@/store/formSlice';
 import { selectPaymentData } from '@/store/selectors';
-import avatar from '@/assets/icon/avatar.svg';
+import { FormWrapper } from '../../features/FormWrapper/FormWrapper';
 import styles from './PaymentInformation.module.scss';
 
 export const PaymentMethodSchema = z.object({

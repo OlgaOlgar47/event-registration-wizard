@@ -1,8 +1,4 @@
-import React from 'react';
-import styles from './PersonalInformation.module.scss';
-import { useForm } from 'react-hook-form';
-import { updateForm } from '@/store/formSlice';
-import { useAppDispatch, useAppSelector } from '@/hook';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Button,
   FormControl,
@@ -12,12 +8,16 @@ import {
   Select,
   TextField,
 } from '@mui/material';
-import { FormWrapper } from '../../features/FormWrapper/FormWrapper';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router-dom';
-import { selectPersonalInfoData } from '@/store/selectors';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
+import { useAppDispatch, useAppSelector } from '@/hook';
+import { updateForm } from '@/store/formSlice';
+import { selectPersonalInfoData } from '@/store/selectors';
+import { FormWrapper } from '../../features/FormWrapper/FormWrapper';
+import styles from './PersonalInformation.module.scss';
 
 export const PersonalInfoSchema = z.object({
   firstName: z.string().min(2, { message: 'First Name is required' }),

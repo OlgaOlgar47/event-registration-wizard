@@ -1,14 +1,14 @@
+import CircularProgress from '@mui/material/CircularProgress';
 import React, { useEffect, useState } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import { Main } from '@/components';
 import {
+  Main,
   EventPreferences,
   PaymentInformation,
   PersonalInformation,
+  Result,
 } from '@/components';
-import { Result } from '@/components';
 import { LanguageSelector } from '@/features';
-import CircularProgress from '@mui/material/CircularProgress';
 
 export const App: React.FC = () => {
   const [loading, setLoading] = useState(true);

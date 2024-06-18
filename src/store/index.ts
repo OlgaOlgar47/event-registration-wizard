@@ -1,5 +1,4 @@
 import { configureStore, Middleware } from '@reduxjs/toolkit';
-
 import formReducer from './formSlice';
 
 const middleware: Middleware[] = [

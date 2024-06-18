@@ -1,9 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import styles from './EventPreferences.module.scss';
-import { useForm } from 'react-hook-form';
-import { updateForm } from '@/store/formSlice';
-import { useAppDispatch, useAppSelector } from '@/hook';
-import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Button,
   FormControl,
@@ -13,13 +8,18 @@ import {
   Select,
   TextField,
 } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { FormWrapper } from '../../features/FormWrapper/FormWrapper';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { selectEventData } from '@/store/selectors';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { z } from 'zod';
+import { useAppDispatch, useAppSelector } from '@/hook';
+import { updateForm } from '@/store/formSlice';
+import { selectEventData } from '@/store/selectors';
+import { FormWrapper } from '../../features/FormWrapper/FormWrapper';
+import styles from './EventPreferences.module.scss';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const EventPreferencesSchema = z.object({
   ticketType: z.enum(['Standard', 'Economy', 'VIP']),

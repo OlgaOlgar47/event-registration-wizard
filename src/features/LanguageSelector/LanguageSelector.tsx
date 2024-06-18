@@ -1,12 +1,12 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import styles from './LanguageSelector.module.scss';
 import {
   MenuItem,
   Select,
   FormControl,
   SelectChangeEvent,
 } from '@mui/material';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import styles from './LanguageSelector.module.scss';
 
 export const LanguageSelector: React.FC = () => {
   const { i18n } = useTranslation();
