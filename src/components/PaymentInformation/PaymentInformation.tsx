@@ -4,12 +4,13 @@ import {
   FormControl,
   FormHelperText,
   InputLabel,
+  LinearProgress,
   MenuItem,
   Select,
   Slider,
   Typography,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import styles from './PaymentInformation.module.scss';
 import { z } from 'zod';
@@ -21,6 +22,9 @@ import { updateForm } from '@/store/formSlice';
 import { useDropzone } from 'react-dropzone';
 import { selectPaymentData } from '@/store/selectors';
 import { useTranslation } from 'react-i18next';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+import ImageIcon from '@mui/icons-material/Image';
+import avatar from '@/assets/icon/avatar.svg';
 
 export const PaymentMethodSchema = z.object({
   paymentMethod: z.enum(['Credit Card', 'PayPal', 'Bank Transfer']),
@@ -58,6 +62,26 @@ export const PaymentInformation: React.FC = () => {
       setValue('profilePicture', acceptedFiles[0]);
     },
   });
+
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadComplete, setUploadComplete] = useState(false);
+
+  const handleUpload = () => {
+    const total = 100;
+    let progress = 0;
+
+    const interval = setInterval(() => {
+      progress += 10;
+      setUploadProgress(progress);
+      if (progress >= total) {
+        clearInterval(interval);
+        setUploadComplete(true);
+      }
+    }, 500);
+  };
+  useEffect(() => {
+    if (file) handleUpload();
+  }, [file]);
 
   const handleSliderChange = (_event: Event, value: number | number[]) => {
     const numberOfTickets = Array.isArray(value) ? value[0] : value;
@@ -126,9 +150,42 @@ export const PaymentInformation: React.FC = () => {
           }}
         >
           <input {...getInputProps()} />
-          <Typography variant="body1">
-            {file ? t('fileAdded') : t('fileInputHelperText')}
-          </Typography>
+          {!file ? (
+            <>
+              <InsertDriveFileIcon
+                sx={{ fontSize: 40, color: '#1A202C', mb: 1 }}
+              />
+              <Typography variant="body1">
+                Drag n Drop here Or Browse
+              </Typography>
+            </>
+          ) : !uploadComplete ? (
+            <>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                <ImageIcon sx={{ mr: 1 }} />
+                <Typography variant="body2" noWrap>
+                  {file.name}
+                </Typography>
+              </Box>
+              <LinearProgress
+                variant="determinate"
+                value={uploadProgress}
+                sx={{ mt: 1, height: 25, borderRadius: 1 }}
+              />
+              <Typography variant="body2" sx={{ mt: 1, textAlign: 'center' }}>
+                {`${Math.round(uploadProgress)} %`}
+              </Typography>
+            </>
+          ) : (
+            <Box
+              sx={{ display: 'flex', alignItems: 'center', marginLeft: '90px' }}
+            >
+              <img src={avatar} alt="avatar pic" />
+              <Typography variant="body2" noWrap sx={{ marginLeft: '10px' }}>
+                {file.name}
+              </Typography>
+            </Box>
+          )}
         </Box>
         <Button type="submit" variant="contained" color="primary" fullWidth>
           {t('next')}

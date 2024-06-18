@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '@/store';
 
-// селекторы мемоизированы, перерисовки не будет
+// The selectors are memoized; there will be no re-renders.
 export const selectPersonalInfoData = createSelector(
   (state: RootState) => state.form,
   form => ({

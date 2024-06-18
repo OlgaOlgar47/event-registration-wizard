@@ -3,8 +3,7 @@ import { configureStore, Middleware } from '@reduxjs/toolkit';
 import formReducer from './formSlice';
 
 const middleware: Middleware[] = [
-  // thunk, // Пример middleware (может быть другой middleware)
-  // Другие middleware по необходимости
+  // thunk -  middlevare example
 ];
 
 export const store = configureStore({
