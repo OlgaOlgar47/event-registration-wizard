@@ -78,15 +78,15 @@ In this project, a modular architecture was deemed unnecessary due to the projec
 - cd event-registration-wizard - navigate to the project directory;
 
 - npm install - install the dependencies;
-- 
+  
 - npm run dev - the project will start on port http://localhost:3000; 🔥
 
 **If you prefer using yarn, follow these steps:**
 
 - git clone https://github.com/OlgaOlgar47/event-registration-wizard - clone the repository;
-- 
+  
 - cd event-registration-wizard - navigate to the project directory;
-- 
+  
 - yarn install - install the dependencies;
-- 
+  
 - yarn dev - the project will start on port http://localhost:3000. 🔥
